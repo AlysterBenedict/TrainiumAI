@@ -13,7 +13,7 @@ data class ChatRequest(
     val model: String = "local-model", // Uses whatever is loaded in LM Studio
     val messages: List<ChatMessage>,
     val temperature: Float = 0.7f,
-    val max_tokens: Int = -1, // -1 usually means "infinite" or model context limit in LM Studio
+    val max_tokens: Int = 2000, // Explicit limit to be safe
     val stream: Boolean = false
 )
 

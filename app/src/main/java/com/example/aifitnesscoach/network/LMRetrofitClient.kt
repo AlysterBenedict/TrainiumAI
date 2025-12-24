@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 object LMRetrofitClient {
     // REPLACE WITH YOUR COMPUTER'S LOCAL IP ADDRESS (e.g., 192.168.1.X)
     // 10.0.2.2 only works for the Android Emulator.
-    private const val BASE_URL = "http://10.199.225.215:1234/"
+    private const val BASE_URL = "http://192.168.1.6:1234/"
 
     val instance: LMApiService by lazy {
         val logging = HttpLoggingInterceptor().apply {

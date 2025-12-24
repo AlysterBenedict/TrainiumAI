@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
     // Corrected IP address from your ipconfig output
-    private const val BASE_URL = "http://10.199.225.215:8000/"
+    private const val BASE_URL = "http://192.168.1.6:8000/"
 
     val instance: ApiService by lazy {
         val logging = HttpLoggingInterceptor().apply {
