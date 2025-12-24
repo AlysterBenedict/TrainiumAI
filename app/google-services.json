@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "916323865213",
+    "project_id": "trainium-ai",
+    "storage_bucket": "trainium-ai.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916323865213:android:7beaaa43e3e5c461665714",
+        "android_client_info": {
+          "package_name": "com.example.aifitnesscoach"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916323865213-78ohd0tsqk3ti93o5q223umtkdjupehk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.aifitnesscoach",
+            "certificate_hash": "e8532db6f85e55bb670d59146772fa2f085b65dd"
+          }
+        },
+        {
+          "client_id": "916323865213-mui6c9rkroprsd6hunirg6v32vak4hha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA91dRjr69gU0vw2wKDt8WL8Pw6ciWbLUk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916323865213-mui6c9rkroprsd6hunirg6v32vak4hha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

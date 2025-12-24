@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Outer Ring -->
+    <item>
+        <shape android:shape="oval">
+            <stroke
+                android:width="4dp"
+                android:color="@color/gold" />
+            <solid android:color="#00000000" />
+            <size
+                android:width="80dp"
+                android:height="80dp" />
+        </shape>
+    </item>
+    <!-- Inner Circle -->
+    <item
+        android:bottom="8dp"
+        android:left="8dp"
+        android:right="8dp"
+        android:top="8dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/gold" />
+        </shape>
+    </item>
+</layer-list>

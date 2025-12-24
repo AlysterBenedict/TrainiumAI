@@ -1,0 +1,490 @@
+<resources>
+    <string name="app_name">Trainium</string>
+
+    <string name="app_tagline">Your Personal AI Trainer</string>
+    <string name="background_image_desc">A dark background image with a fitness theme.</string>
+
+    <string name="start_button_text">START</string>
+    <string name="loading_text">Loading your AI trainer...</string>
+    <string name="select_exercise_title">Select Your Workout</string>
+    <string name="exercise_icon_description">Icon representing the exercise</string>
+    <string name="exercise_duration_hint">Exercise duration (s)</string>
+    <string name="rest_duration_hint">Rest duration (s)</string>
+    <string name="start_workout_button">Start Workout</string>
+
+    <string name="skip_button">Skip</string>
+
+    <string name="workout_complete_text">Congratulations! You\'ve completed your workout.</string>
+    <string name="end_button">End</string>
+
+
+    <string name="profile_picture_desc">User\'s profile picture</string>
+
+        <string name="google_signin_button_desc">Button to sign in with a Google account</string>
+
+    <string-array name="fitness_goals">
+        <item>General Fitness</item>
+        <item>Weight Loss</item>
+        <item>Muscle Gain</item>
+        <item>Gain Stamina</item>
+    </string-array>
+
+    <string-array name="fitness_levels">
+        <item>Beginner</item>
+        <item>Intermediate</item>
+        <item>Advanced</item>
+    </string-array>
+
+
+
+
+
+
+
+
+
+        <string-array name="motivational_quotes">
+            <!-- Original Quotes -->
+            <item>The only bad workout is the one that didn’t happen.</item>
+            <item>Sweat is just fat crying.</item>
+            <item>The body achieves what the mind believes.</item>
+            <item>Don’t limit your challenges. Challenge your limits.</item>
+            <item>Someone busier than you is working out right now.</item>
+            <item>Your future is created by what you do today, not tomorrow.</item>
+            <item>Hustle for that muscle.</item>
+            <item>Discipline is just choosing between what you want now and what you want most.</item>
+            <item>It\'s not about having time. It\'s about making time.</item>
+            <item>The pain you feel today will be the strength you feel tomorrow.</item>
+            <item>A little progress each day adds up to big results.</item>
+            <item>Excuses don’t burn calories.</item>
+            <item>Strive for progress, not perfection.</item>
+            <item>Fall in love with taking care of your body.</item>
+            <item>Motivation is what gets you started. Habit is what keeps you going.</item>
+            <item>Push yourself because no one else is going to do it for you.</item>
+            <item>Success starts with self-discipline.</item>
+            <item>You are stronger than you think.</item>
+            <item>Be stronger than your excuses.</item>
+            <item>The difference between try and triumph is a little umph.</item>
+            <item>Wake up with determination. Go to bed with satisfaction.</item>
+            <item>It comes down to one simple thing: how bad do you want it?</item>
+            <item>Believe in yourself and all that you are.</item>
+            <item>Success isn’t always about greatness. It’s about consistency.</item>
+            <item>Train insane or remain the same.</item>
+            <item>You don’t have to be extreme, just consistent.</item>
+            <item>You don’t find willpower, you create it.</item>
+            <item>The secret of getting ahead is getting started.</item>
+            <item>Do something today that your future self will thank you for.</item>
+            <item>The only way to finish is to start.</item>
+            <item>Sore today, strong tomorrow.</item>
+            <item>No pain, no gain.</item>
+            <item>Make your body the sexiest outfit you own.</item>
+            <item>If you\’re tired of starting over, stop giving up.</item>
+            <item>Fitness is not a destination, it is a way of life.</item>
+            <item>What seems impossible today will one day become your warm-up.</item>
+            <item>Every workout is progress.</item>
+            <item>Don’t wish for a good body, work for it.</item>
+            <item>Go the extra mile. It’s never crowded.</item>
+            <item>Your body can stand almost anything. It\’s your mind you have to convince.</item>
+            <item>Obsessed is a word the lazy use to describe the dedicated.</item>
+            <item>Champions are made in the gym.</item>
+            <item>Clear your mind of can’t.</item>
+            <item>The gym is your therapy session.</item>
+            <item>It\’s a slow process, but quitting won\’t speed it up.</item>
+            <item>Respect your body. It\’s the only one you get.</item>
+            <item>Action is the foundational key to all success.</item>
+            <item>One workout at a time. One day at a time. One meal at a time.</item>
+            <item>Look in the mirror. That\’s your competition.</item>
+            <item>The grind never stops.</item>
+
+            <!-- 500 New Quotes -->
+            <item>Strength does not come from physical capacity. It comes from an indomitable will.</item>
+            <item>The last three or four reps is what makes the muscle grow. This area of pain divides a champion from someone who is not.</item>
+            <item>Success is usually the culmination of controlling failure.</item>
+            <item>The more you sweat in practice, the less you bleed in battle.</item>
+            <item>Your body is the only place you have to live. Take care of it.</item>
+            <item>The hard days are what make you stronger.</item>
+            <item>You can have results or excuses. Not both.</item>
+            <item>Your only limit is you.</item>
+            <item>Become a priority in your own life.</item>
+            <item>Don\'t stop when you\'re tired. Stop when you\'re done.</item>
+            <item>Make every workout count.</item>
+            <item>The best project you\'ll ever work on is you.</item>
+            <item>Be the energy you want to attract.</item>
+            <item>Consistency is the key to unlocking your potential.</item>
+            <item>Today\'s actions are tomorrow\'s results.</item>
+            <item>Victory is in the effort, not the outcome.</item>
+            <item>Fitness is an investment in your future self.</item>
+            <item>Change your body by changing your thoughts.</item>
+            <item>The only workout you regret is the one you didn\'t do.</item>
+            <item>Be so good they can\'t ignore you.</item>
+            <item>A year from now, you will wish you had started today.</item>
+            <item>Create healthy habits, not restrictions.</item>
+            <item>Let your faith be bigger than your fears.</item>
+            <item>Good things come to those who sweat.</item>
+            <item>The will to win is important, but the will to prepare is vital.</item>
+            <item>Pain is temporary. Quitting lasts forever.</item>
+            <item>Your mind will quit a thousand times before your body will.</item>
+            <item>The journey of a thousand miles begins with a single step.</item>
+            <item>Focus on your goal. Don\'t look in any direction but ahead.</item>
+            <item>I may not be there yet, but I\'m closer than I was yesterday.</item>
+            <item>Doubt kills more dreams than failure ever will.</item>
+            <item>Hard work beats talent when talent doesn\'t work hard.</item>
+            <item>The best way to predict the future is to create it.</item>
+            <item>Energy and persistence conquer all things.</item>
+            <item>If it doesn’t challenge you, it won’t change you.</item>
+            <item>Stop saying \'I wish.\' Start saying \'I will.\'</item>
+            <item>Every drop of sweat is a step towards your goal.</item>
+            <item>Commit to be fit.</item>
+            <item>Set a goal that makes you want to jump out of bed in the morning.</item>
+            <item>Your comfort zone is a beautiful place, but nothing ever grows there.</item>
+            <item>Earn your body. Every single day.</item>
+            <item>Results happen over time, not overnight. Work hard, stay consistent, and be patient.</item>
+            <item>Be the person who decided to go for it.</item>
+            <item>Don\'t fear failure. Fear being in the exact same place next year as you are today.</item>
+            <item>The first step to getting anywhere is deciding you\'re not willing to stay where you are.</item>
+            <item>Your passion is waiting for your courage to catch up.</item>
+            <item>The only thing standing between you and your goal is the story you keep telling yourself.</item>
+            <item>Push through the pain, on the other side is growth.</item>
+            <item>When you feel like quitting, think about why you started.</item>
+            <item>Small changes can make a big difference.</item>
+            <item>You are confined only by the walls you build yourself.</item>
+            <item>The body is like a machine. If you don\'t use it, it will rust.</item>
+            <item>Discipline is the bridge between goals and accomplishment.</item>
+            <item>Be a warrior, not a worrier.</item>
+            <item>Fitness is not about being better than someone else. It\'s about being better than you used to be.</item>
+            <item>The difference between the impossible and the possible lies in a person\'s determination.</item>
+            <item>Once you see results, it becomes an addiction.</item>
+            <item>The harder you work, the better you get.</item>
+            <item>Success is the sum of small efforts, repeated day in and day out.</item>
+            <item>I don\'t stop when I\'m tired, I stop when I am done.</item>
+            <item>The only bad workout is the one you didn\'t do.</item>
+            <item>The secret to your success is found in your daily routine.</item>
+            <item>Become the best version of yourself.</item>
+            <item>The reason people fail is not because of the difficulty, but because of the lack of belief.</item>
+            <item>The pain of today is the victory of tomorrow.</item>
+            <item>Challenges are what make life interesting and overcoming them is what makes life meaningful.</item>
+            <item>Your body will be around a lot longer than that expensive handbag. Invest in yourself.</item>
+            <item>The best revenge is a massive success.</item>
+            <item>Eat clean, train dirty.</item>
+            <item>Don\'t wait for opportunity. Create it.</item>
+            <item>The more you are willing to accept responsibility for your actions, the more credibility you will have.</item>
+            <item>It’s going to be a journey. It’s not a sprint to get in shape.</item>
+            <item>Believe you can and you’re halfway there.</item>
+            <item>To change your body, you must first change your mind.</item>
+            <item>The only person you should try to be better than is the person you were yesterday.</item>
+            <item>Don\'t be afraid of being a beginner.</item>
+            <item>Today I will do what others won’t, so tomorrow I can accomplish what others can’t.</item>
+            <item>Be patient. The results will speak for themselves.</item>
+            <item>You have to be at your strongest when you’re feeling at your weakest.</item>
+            <item>Let exercise be your stress relief, not food.</item>
+            <item>Your desire to change must be greater than your desire to stay the same.</item>
+            <item>Progress is not linear. There will be ups and downs.</item>
+            <item>Never underestimate the power of a good workout on a bad day.</item>
+            <item>The gym is my happy hour.</item>
+            <item>Sweat is magic. Cover yourself in it daily to grant your wishes.</item>
+            <item>The moment you want to quit is the moment you need to keep pushing.</item>
+            <item>Your health is an investment, not an expense.</item>
+            <item>No matter how slow you go, you are still lapping everyone on the couch.</item>
+            <item>Willpower is a muscle. The more you use it, the stronger it gets.</item>
+            <item>Your goals don\'t care how you feel.</item>
+            <item>You don’t need a new year to make a change. All you need is a Monday.</item>
+            <item>Focus on health, not weight.</item>
+            <item>The only time you should ever look back is to see how far you\'ve come.</item>
+            <item>A strong body is a strong mind.</item>
+            <item>The work you put in today will pay off tomorrow.</item>
+            <item>Fall down seven times, stand up eight.</item>
+            <item>You are built to do hard things.</item>
+            <item>Prove them wrong.</item>
+            <item>The first wealth is health.</item>
+            <item>Be the hardest worker in the room.</item>
+            <item>Excuses are for people who don\'t want it bad enough.</item>
+            <item>Stay positive, work hard, make it happen.</item>
+            <item>Your body is a temple, but only if you treat it as one.</item>
+            <item>One pound at a time. One rep at a time. One day at a time.</item>
+            <item>Don\'t let a stumble in the road be the end of your journey.</item>
+            <item>Strength grows in the moments when you think you can\'t go on but you keep going anyway.</item>
+            <item>It\'s not a diet. It\'s a lifestyle change.</item>
+            <item>Discomfort is the price of admission to a meaningful life.</item>
+            <item>Be savage, not average.</item>
+            <item>It’s not about perfection. It’s about effort.</item>
+            <item>Train like a beast, look like a beauty.</item>
+            <item>The difference between wanting and achieving is discipline.</item>
+            <item>The world is a gym, and we are all athletes.</item>
+            <item>Your body hears everything your mind says. Stay positive.</item>
+            <item>The best project you will ever work on is you.</item>
+            <item>Keep your squats low and your standards high.</item>
+            <item>Sweat is your fat crying.</item>
+            <item>If you can\'t stop thinking about it, don\'t stop working for it.</item>
+            <item>Success is what happens after you have survived all of your disappointments.</item>
+            <item>You can\'t out-train a bad diet.</item>
+            <item>Remember that any exercise is better than no exercise.</item>
+            <item>Champions keep playing until they get it right.</item>
+            <item>The only thing that is impossible is the thing you don\'t try.</item>
+            <item>Be proud of how far you have come. Have faith in how far you can go.</item>
+            <item>The mind is the most important part of achieving any fitness goal.</item>
+            <item>If you change the way you look at things, the things you look at change.</item>
+            <item>The body is an amazing machine. Treat it with respect.</item>
+            <item>You are one workout away from a good mood.</item>
+            <item>Life has no remote. Get up and change it yourself.</item>
+            <item>The future depends on what you do today.</item>
+            <item>Every day is another chance to get stronger, to eat better, to live healthier, and to be the best version of you.</item>
+            <item>The secret of change is to focus all of your energy not on fighting the old, but on building the new.</item>
+            <item>Don\'t let the weekend become your weak end.</item>
+            <item>Tough times don\'t last. Tough people do.</item>
+            <item>It’s not who you are that holds you back, it’s who you think you’re not.</item>
+            <item>The only victory that counts is the one over yourself.</item>
+            <item>Take care of your body. It\'s the only place you have to live.</item>
+            <item>Your focus determines your reality.</item>
+            <item>Winners are not people who never fail, but people who never quit.</item>
+            <item>Do what you have to do until you can do what you want to do.</item>
+            <item>Success is not for the lazy.</item>
+            <item>Never say the sky’s the limit when there are footprints on the moon.</item>
+            <item>You are the artist of your own life. Don\'t hand the paintbrush to anyone else.</item>
+            <item>The only limit to our realization of tomorrow will be our doubts of today.</item>
+            <item>What you do speaks so loudly that I cannot hear what you say.</item>
+            <item>Obstacles are those frightful things you see when you take your eyes off your goal.</item>
+            <item>It is never too late to be what you might have been.</item>
+            <item>Don\'t let yesterday take up too much of today.</item>
+            <item>Ability is what you\'re capable of doing. Motivation determines what you do. Attitude determines how well you do it.</item>
+            <item>You must do the thing you think you cannot do.</item>
+            <item>What we fear of doing most is usually what we most need to do.</item>
+            <item>I am not a product of my circumstances. I am a product of my decisions.</item>
+            <item>When something is important enough, you do it even if the odds are not in your favor.</item>
+            <item>The greatest mistake you can make in life is to be continually fearing you will make one.</item>
+            <item>To be a great champion you must believe you are the best. If you’re not, pretend you are.</item>
+            <item>Pain is weakness leaving the body.</item>
+            <item>I hated every minute of training, but I said, \'Don\'t quit. Suffer now and live the rest of your life as a champion.\'</item>
+            <item>The successful warrior is the average man, with laser-like focus.</item>
+            <item>You have to expect things of yourself before you can do them.</item>
+            <item>If you are not willing to risk the usual you will have to settle for the ordinary.</item>
+            <item>All our dreams can come true if we have the courage to pursue them.</item>
+            <item>Don\'t watch the clock; do what it does. Keep going.</item>
+            <item>Keep your eyes on the stars, and your feet on the ground.</item>
+            <item>A champion is someone who gets up when he can\'t.</item>
+            <item>Things work out best for those who make the best of how things work out.</item>
+            <item>To live a creative life, we must lose our fear of being wrong.</item>
+            <item>I would rather die of passion than of boredom.</item>
+            <item>If you want to make a permanent change, stop focusing on the size of your problems and start focusing on the size of you!</item>
+            <item>The first and greatest victory is to conquer yourself.</item>
+            <item>The purpose of training is to tighten up the slack, toughen the body, and polish the spirit.</item>
+            <item>You can feel sore tomorrow or you can feel sorry tomorrow. You choose.</item>
+            <item>My warm-up is your workout.</item>
+            <item>Don\'t just show up. Show up to dominate.</item>
+            <item>You didn\'t come this far to only come this far.</item>
+            <item>Sweat is the cologne of accomplishment.</item>
+            <item>Become comfortable with being uncomfortable.</item>
+            <item>Get up. Work out. Look hot. Kick ass.</item>
+            <item>Of course it\'s hard. It\'s supposed to be hard. If it was easy, everybody would do it.</item>
+            <item>Your body can do it. It\'s time to convince your mind.</item>
+            <item>I will not be outworked.</item>
+            <item>Rome wasn\'t built in a day. Work hard and be patient.</item>
+            <item>The more you challenge yourself, the stronger you become.</item>
+            <item>Results are earned, not given.</item>
+            <item>Excuses are lies you tell yourself.</item>
+            <item>The gym is a battlefield. Go to war.</item>
+            <item>Stay dedicated. It’s not going to happen overnight.</item>
+            <item>Feed your focus. Starve your distractions.</item>
+            <item>Your mind is the strongest and most valuable muscle you can grow.</item>
+            <item>If you\'re persistent, you will get it. If you\'re consistent, you will keep it.</item>
+            <item>Failure is only the opportunity to begin again, this time more intelligently.</item>
+            <item>Don\'t complain. Just work harder.</item>
+            <item>The only bad day is a day you don\'t try.</item>
+            <item>Every pro was once an amateur. Every expert was once a beginner.</item>
+            <item>Strive to be better. Not perfect.</item>
+            <item>The best way to get started is to quit talking and begin doing.</item>
+            <item>Your attitude determines your direction.</item>
+            <item>The sweat, the time, the devotion. It pays off.</item>
+            <item>The only easy day was yesterday.</item>
+            <item>You are your only limit.</item>
+            <item>Do it for the after-selfie.</item>
+            <item>Get fit in the gym. Lose weight in the kitchen.</item>
+            <item>A healthy lifestyle is something we refine over time – not overnight.</item>
+            <item>The pain of discipline is nothing like the pain of disappointment.</item>
+            <item>Your body is a work of art. You are the sculptor.</item>
+            <item>Go hard or go home.</item>
+            <item>Don\'t let your mind bully your body.</item>
+            <item>Life begins at the end of your comfort zone.</item>
+            <item>Your strongest muscle and your worst enemy is your mind. Train it well.</item>
+            <item>The only thing that will stop you from fulfilling your dreams is you.</item>
+            <item>Push harder than yesterday if you want a different tomorrow.</item>
+            <item>The results you see will be the work you put in.</item>
+            <item>Eat for the body you want, not the body you have.</item>
+            <item>The body loves routine.</item>
+            <item>Working out is a privilege, not a chore.</item>
+            <item>You are never too old to set another goal or to dream a new dream.</item>
+            <item>Be the one who is still there at the end.</item>
+            <item>The reward for hard work is more hard work.</item>
+            <item>Don\'t be afraid to fail. Be afraid not to try.</item>
+            <item>Your body will thank you for it.</item>
+            <item>You are capable of more than you know.</item>
+            <item>The best investment you can make is in your own health.</item>
+            <item>It’s a marathon, not a sprint.</item>
+            <item>Progress is progress, no matter how small.</item>
+            <item>Be addicted to bettering yourself.</item>
+            <item>The harder the workout, the greater the feeling of accomplishment.</item>
+            <item>Find your fire.</item>
+            <item>The pain you feel is the weakness leaving your body.</item>
+            <item>You are the CEO of your body. Hire, fire, and promote accordingly.</item>
+            <item>Let your results be your noise.</item>
+            <item>The goal is to be better than you were yesterday.</item>
+            <item>Mind over matter.</item>
+            <item>It’s not about how bad you want it, it’s about how hard you’re willing to work for it.</item>
+            <item>Success is earned, not given. Sweat for it.</item>
+            <item>Your body can stand almost anything. It’s your mind that you have to convince.</item>
+            <item>The ultimate test of a man\'s character is what he does when no one is watching.</item>
+            <item>Greatness is a lot of small things done well.</item>
+            <item>There are no shortcuts to any place worth going.</item>
+            <item>The only place where success comes before work is in the dictionary.</item>
+            <item>Don\'t tell people your dreams. Show them.</item>
+            <item>I don\'t do this to be healthy, I do this to be the best.</item>
+            <item>The gym is calling and I must go.</item>
+            <item>It never gets easier, you just get stronger.</item>
+            <item>Your habits will determine your future.</item>
+            <item>Build a body you are proud of.</item>
+            <item>Strength is the product of struggle, you must do what others don\'t to achieve what others won\'t.</item>
+            <item>A goal without a plan is just a wish.</item>
+            <item>It’s not about having the perfect body, it’s about having a healthy body.</item>
+            <item>The secret to success is to start before you are ready.</item>
+            <item>The road to success is paved with consistency.</item>
+            <item>Your only competition is the person you were yesterday.</item>
+            <item>You are one decision away from a completely different life.</item>
+            <item>The best project is you.</item>
+            <item>Work out. Eat well. Be patient. Your body will reward you.</item>
+            <item>The only thing stopping you is you.</item>
+            <item>If it was easy, everyone would do it.</item>
+            <item>Don\'t dream of it. Train for it.</item>
+            <item>You don’t have to be great to start, but you have to start to be great.</item>
+            <item>The voice in your head that says you can’t do this is a liar.</item>
+            <item>Train yourself to let go of everything you fear to lose.</item>
+            <item>The world is changed by your example, not by your opinion.</item>
+            <item>If you are tired of starting over, stop giving up.</item>
+            <item>Your attitude, not your aptitude, will determine your altitude.</item>
+            <item>I am doing this for me.</item>
+            <item>The only way to achieve the impossible is to believe it is possible.</item>
+            <item>Don\'t wish for it. Work for it.</item>
+            <item>The greater the obstacle, the more glory in overcoming it.</item>
+            <item>Perseverance is failing 19 times and succeeding the 20th.</item>
+            <item>The question isn’t who is going to let me; it’s who is going to stop me.</item>
+            <item>Don’t count the reps, make the reps count.</item>
+            <item>You are powerful. You are beautiful. You are brilliant. You are brave.</item>
+            <item>The only person who can stop you from reaching your goals is you.</item>
+            <item>Victory is sweetest when you’ve known defeat.</item>
+            <item>A little bit of progress every day adds up to big results.</item>
+            <item>Be the change you wish to see in the world.</item>
+            <item>The only way to do great work is to love what you do.</item>
+            <item>The journey is the reward.</item>
+            <item>You must be the change you wish to see in the world.</item>
+            <item>I am the master of my fate: I am the captain of my soul.</item>
+            <item>It does not matter how slowly you go as long as you do not stop.</item>
+            <item>The future belongs to those who believe in the beauty of their dreams.</item>
+            <item>What lies behind us and what lies before us are tiny matters compared to what lies within us.</item>
+            <item>Our greatest glory is not in never falling, but in rising every time we fall.</item>
+            <item>Do not go where the path may lead, go instead where there is no path and leave a trail.</item>
+            <item>The best time to plant a tree was 20 years ago. The second best time is now.</item>
+            <item>You miss 100% of the shots you don’t take.</item>
+            <item>The most difficult thing is the decision to act, the rest is merely tenacity.</item>
+            <item>Strive not to be a success, but rather to be of value.</item>
+            <item>I attribute my success to this: I never gave or took any excuse.</item>
+            <item>Every strike brings me closer to the next home run.</item>
+            <item>Definiteness of purpose is the starting point of all achievement.</item>
+            <item>Life isn\'t about getting and having, it\'s about giving and being.</item>
+            <item>The mind is everything. What you think you become.</item>
+            <item>Your time is limited, so don’t waste it living someone else’s life.</item>
+            <item>Winning isn’t everything, but wanting to win is.</item>
+            <item>I am not afraid of storms, for I am learning how to sail my ship.</item>
+            <item>Either you run the day, or the day runs you.</item>
+            <item>Whether you think you can or you think you can’t, you’re right.</item>
+            <item>The two most important days in your life are the day you are born and the day you find out why.</item>
+            <item>Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it.</item>
+            <item>The best revenge is massive success.</item>
+            <item>People often say that motivation doesn’t last. Well, neither does bathing. That’s why we recommend it daily.</item>
+            <item>Life shrinks or expands in proportion to one’s courage.</item>
+            <item>There is only one way to avoid criticism: do nothing, say nothing, and be nothing.</item>
+            <item>Ask and it will be given to you; search, and you will find; knock and the door will be opened for you.</item>
+            <item>The only person you are destined to become is the person you decide to be.</item>
+            <item>Go confidently in the direction of your dreams. Live the life you have imagined.</item>
+            <item>When I stand before God at the end of my life, I would hope that I would not have a single bit of talent left and could say, I used everything you gave me.</item>
+            <item>Believe that life is worth living and your belief will help create the fact.</item>
+            <item>Build your own dreams, or someone else will hire you to build theirs.</item>
+            <item>Remember that not getting what you want is sometimes a wonderful stroke of luck.</item>
+            <item>You can’t fall if you don’t climb. But there’s no joy in living your whole life on the ground.</item>
+            <item>We must believe that we are gifted for something, and that this thing, at whatever cost, must be attained.</item>
+            <item>Too many of us are not living our dreams because we are living our fears.</item>
+            <item>Challenges are gifts that force us to search for a new center of gravity. Don’t fight them. Just find a new way to stand.</item>
+            <item>I have learned over the years that when one’s mind is made up, this diminishes fear.</item>
+            <item>I didn’t fail the test. I just found 100 ways to do it wrong.</item>
+            <item>In order to succeed, your desire for success should be greater than your fear of failure.</item>
+            <item>A person who never made a mistake never tried anything new.</item>
+            <item>The person who says it cannot be done should not interrupt the person who is doing it.</item>
+            <item>There are no traffic jams along the extra mile.</item>
+            <item>It is not what you do for your children, but what you have taught them to do for themselves, that will make them successful human beings.</item>
+            <item>If you want your children to turn out well, spend twice as much time with them, and half as much money.</item>
+            <item>I’ve learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</item>
+            <item>A truly rich man is one whose children run into his arms when his hands are empty.</item>
+            <item>What’s the point of being alive if you don’t at least try to do something remarkable.</item>
+            <item>Life is not about finding yourself. Life is about creating yourself.</item>
+            <item>Nothing in the world is more common than unsuccessful people with talent.</item>
+            <item>Knowledge is being aware of what you can do. Wisdom is knowing when not to do it.</item>
+            <item>Your problem isn’t the problem. Your reaction is the problem.</item>
+            <item>You can do anything, but not everything.</item>
+            <item>I am thankful for all of those who said NO to me. It’s because of them I’m doing it myself.</item>
+            <item>A creative man is motivated by the desire to achieve, not by the desire to beat others.</item>
+            <item>The number one reason people fail in life is because they listen to their friends, family, and neighbors.</item>
+            <item>If you can’t explain it simply, you don’t understand it well enough.</item>
+            <item>There are two types of people who will tell you that you cannot make a difference in this world: those who are afraid to try and those who are afraid you will succeed.</item>
+            <item>Start where you are. Use what you have. Do what you can.</item>
+            <item>I find that the harder I work, the more luck I seem to have.</item>
+            <item>The starting point of all achievement is desire.</item>
+            <item>Success is the progressive realization of a worthy ideal.</item>
+            <item>All progress takes place outside the comfort zone.</item>
+            <item>You may only succeed if you desire succeeding; you may only fail if you do not mind failing.</item>
+            <item>Courage is resistance to fear, mastery of fear – not absence of fear.</item>
+            <item>Only put off until tomorrow what you are willing to die having left undone.</item>
+            <item>We become what we think about most of the time, and that’s the strangest secret.</item>
+            <item>The only place where success comes before work is in the dictionary.</item>
+            <item>The mind is its own place, and in itself can make a heaven of hell, a hell of heaven.</item>
+            <item>I will not let age change me. I will change the way I age.</item>
+            <item>We are what we repeatedly do. Excellence, then, is not an act, but a habit.</item>
+            <item>A man can be as great as he wants to be. If you believe in yourself and have the courage, the determination, the dedication, the competitive drive and if you are willing to sacrifice the little things in life and pay the price for the things that are worthwhile, it can be done.</item>
+            <item>The way to get started is to quit talking and begin doing.</item>
+            <item>Don\'t be distracted by criticism. Remember–the only taste of success some people get is to take a bite out of you.</item>
+            <item>The most common way people give up their power is by thinking they don\'t have any.</item>
+            <item>The mind is the limit. As long as the mind can envision the fact that you can do something, you can do it, as long as you really believe 100 percent.</item>
+            <item>We can’t help everyone, but everyone can help someone.</item>
+            <item>Whatever the mind of man can conceive and believe, it can achieve.</item>
+            <item>Strive for progress, not perfection.</item>
+            <item>The two most powerful warriors are patience and time.</item>
+            <item>I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times.</item>
+            <item>A wise man can learn more from a foolish question than a fool can learn from a wise answer.</item>
+            <item>If you judge people, you have no time to love them.</item>
+            <item>The best way out is always through.</item>
+            <item>If you are not obsessed with your life, you are wasting your time.</item>
+            <item>The only thing worse than being blind is having sight but no vision.</item>
+            <item>Don\'t be afraid to give up the good to go for the great.</item>
+            <item>No masterpiece was ever created by a lazy artist.</item>
+            <item>If you can\'t do great things, do small things in a great way.</item>
+            <item>You are the sum of your habits.</item>
+            <item>The best view comes after the hardest climb.</item>
+            <item>Genius is one percent inspiration and ninety-nine percent perspiration.</item>
+            <item>If you want to live a happy life, tie it to a goal, not to people or things.</item>
+            <item>You can never cross the ocean until you have the courage to lose sight of the shore.</item>
+            <item>I’ve missed more than 9000 shots in my career. I’ve lost almost 300 games. 26 times I’ve been trusted to take the game winning shot and missed. I’ve failed over and over and over again in my life. And that is why I succeed.</item>
+            <item>The harder the conflict, the more glorious the triumph.</item>
+            <item>The greatest wealth is health.</item>
+            <item>An ounce of prevention is worth a pound of cure.</item>
+            <item>You’re not getting older, you’re getting better.</item>
+            <item>The groundwork for all happiness is good health.</item>
+            <item>A healthy outside starts from the inside.</item>
+            <item>Take care of your body. It\'s the only place you have to live.</item>
+            <item>Movement is a medicine for creating change in a person\'s physical, emotional, and mental states.</item>
+            <item>To keep the body in good health is a duty… otherwise we shall not be able to keep our mind strong and clear.</item>
+            <item>Health is a state of body. Wellness is a state of being.</item>
+            <item>Physical fitness is the first requisite of happiness.</item>
+            <item>The reason I exercise is for the quality of life I enjoy.</item>
+            <item>Health is not about the weight you lose, but about the life you gain.</item>
+            <item>The man who has health has hope; and he who has hope, has everything.</item>
+            <item>If you have health, you probably will be happy, and if you have health and happiness, you have all the wealth you need, even if it is not all you want.</item>
+
+        </string-array>
+    </resources>
+

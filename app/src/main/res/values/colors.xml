@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Theme Colors -->
+    <color name="black">#FF000000</color>
+    <color name="gold">#FFD700</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="dark_grey">#1A1A1A</color>
+
+    <!-- UI Element Colors -->
+    <color name="textColorPrimary">@color/gold</color>
+    <color name="textColorSecondary">@color/white</color>
+    <color name="buttonBackground">@color/gold</color>
+    <color name="buttonTextColor">@color/black</color>
+
+    <color name="gold_light">#FFFACD</color>
+    <color name="gold_dark">#B8860B</color>
+</resources>
