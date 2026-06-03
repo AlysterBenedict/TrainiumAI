@@ -21,12 +21,6 @@ android {
 
     }
 
-    aaptOptions {
-
-        noCompress.add("tflite")
-
-    }
-
     defaultConfig {
 
         applicationId = "com.example.aifitnesscoach"
