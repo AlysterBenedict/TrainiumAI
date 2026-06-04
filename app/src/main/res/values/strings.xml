@@ -2,25 +2,15 @@
     <string name="app_name">Trainium</string>
 
     <string name="app_tagline">Your Personal AI Trainer</string>
-    <string name="background_image_desc">A dark background image with a fitness theme.</string>
 
-    <string name="start_button_text">START</string>
     <string name="loading_text">Loading your AI trainer...</string>
-    <string name="select_exercise_title">Select Your Workout</string>
     <string name="exercise_icon_description">Icon representing the exercise</string>
-    <string name="exercise_duration_hint">Exercise duration (s)</string>
-    <string name="rest_duration_hint">Rest duration (s)</string>
-    <string name="start_workout_button">Start Workout</string>
 
     <string name="skip_button">Skip</string>
 
-    <string name="workout_complete_text">Congratulations! You\'ve completed your workout.</string>
     <string name="end_button">End</string>
 
-
-    <string name="profile_picture_desc">User\'s profile picture</string>
-
-        <string name="google_signin_button_desc">Button to sign in with a Google account</string>
+    <string name="google_signin_button_desc">Button to sign in with a Google account</string>
 
     <string-array name="fitness_goals">
         <item>General Fitness</item>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:installLocation="auto">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -22,31 +23,31 @@
         tools:targetApi="31">
         
         <activity
-            android:name=".WorkoutCompleteActivity"
+            android:name=".WorkoutCompleteActivity_ui"
             android:exported="false" />
         <activity
-            android:name=".RestActivity"
+            android:name=".RestActivity_ui"
             android:exported="false" />
         <activity
-            android:name=".WorkoutActivity"
+            android:name=".WorkoutActivity_ui"
             android:exported="false" />
         <activity
-            android:name=".CameraCaptureActivity"
+            android:name=".CameraCaptureActivity_ui"
             android:exported="false" />
         <activity
-            android:name=".PhotoInstructionsActivity"
+            android:name=".PhotoInstructionsActivity_ui"
             android:exported="false" />
         <activity
-            android:name=".OnboardingFormActivity"
+            android:name=".OnboardingFormActivity_ui"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".HomeActivity_ui"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".LoginActivity_ui"
             android:exported="true" />
         <activity
-            android:name=".StartActivity"
+            android:name=".StartActivity_ui"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,11 +56,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".WorkoutPlanActivity" android:exported="false" />
-        <activity android:name=".DayExercisesActivity" android:exported="false" />
-        <activity android:name=".CustomWorkoutActivity" android:exported="false" />
-        <activity android:name=".ProfileActivity" android:exported="false" />
-        <activity android:name=".ChatbotActivity" android:exported="false" />
+        <activity android:name=".WorkoutPlanActivity_ui" android:exported="false" />
+        <activity android:name=".DayExercisesActivity_ui" android:exported="false" />
+        <activity android:name=".CustomWorkoutActivity_ui" android:exported="false" />
+        <activity android:name=".ProfileActivity_ui" android:exported="false" />
+        <activity android:name=".ChatbotActivity_ui" android:exported="false" />
+        <activity android:name=".ReportsActivity_ui" android:exported="false" />
+
     </application>
 
 </manifest>

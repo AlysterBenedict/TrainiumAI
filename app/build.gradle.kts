@@ -1,10 +1,8 @@
 plugins {
-
     alias(libs.plugins.android.application)
-
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
-
+    alias(libs.plugins.kotlin.compose)
 }
 
 
@@ -16,9 +14,8 @@ android {
     compileSdk = 36
 
     buildFeatures {
-
         viewBinding = true
-
+        compose = true
     }
 
     defaultConfig {
@@ -36,6 +33,10 @@ android {
 
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters.add("arm64-v8a")
+        }
 
     }
 
@@ -71,6 +72,13 @@ android {
 
         jvmTarget = "11"
 
+    }
+
+    packaging {
+        jniLibs {
+            excludes += "lib/x86/*.so"
+            excludes += "lib/x86_64/*.so"
+        }
     }
 
 }
@@ -133,7 +141,7 @@ dependencies {
 
 // MediaPipe
 
-    implementation("com.google.mediapipe:tasks-vision:0.10.0")
+    implementation("com.google.mediapipe:tasks-vision:0.10.14")
 
 
 
@@ -152,4 +160,16 @@ dependencies {
 // Coroutines for asynchronous programming
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+
+    // Compose Dependencies
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.activity.compose)
+    implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("androidx.compose.material:material-icons-extended")
+    debugImplementation(libs.androidx.compose.ui.tooling)
 } // Moved this closing brace to a new line
