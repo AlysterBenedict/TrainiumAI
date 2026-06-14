@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trainium AI — Your AI Fitness Coach</title>
+    <meta name="description" content="Trainium AI is a hyper-personalized AI fitness coach powered by on-device deep learning. Real-time pose estimation, 50+ exercises, body scan biometrics, and a custom Transformer workout generator — all running offline on your Android device.">
+    <meta name="keywords" content="AI fitness coach, workout app, pose estimation, body scan, transformer workout generator, MediaPipe, on-device AI, Trainium">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <img src="logo.png" alt="Trainium AI Logo" class="logo-img">
+                <span class="logo-text">TRAINIUM</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#features">Features</a>
+                <a href="#ai-engine">AI Engine</a>
+                <a href="#exercises">Exercises</a>
+                <a href="#analytics">Analytics</a>
+                <a href="#ai-coach">AI Coach</a>
+                <a href="#contact">Contact Us</a>
+            </div>
+            <a href="#download" class="nav-cta">Get the App</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-grid-bg"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                On-Device AI · No Internet Required
+            </div>
+            <h1>Your Personal<br><span class="text-gradient">AI Fitness Coach</span></h1>
+            <p class="hero-subtitle">
+                Trainium AI combines real-time pose estimation, on-device body scanning, on-device local LLM and a custom Transformer neural network to deliver hyper-personalized 30-day workout plans — all running entirely on your device.
+            </p>
+            <div class="hero-actions">
+                <a href="#download" class="btn-primary">
+                    <span>Download Now</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#features" class="btn-secondary">
+                    Explore Features
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-value">50+</span>
+                    <span class="stat-label">AI-Tracked Exercises</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-value">33</span>
+                    <span class="stat-label">Body Keypoints</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-value">15+</span>
+                    <span class="stat-label">Body Metrics</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-value">100%</span>
+                    <span class="stat-label">Offline Capable</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-phone-mockup">
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <img src="homescreen_v3.jpeg" alt="Trainium AI Home Screen" class="phone-screenshot">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="section-glow"></div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Core Features</span>
+                <h2>Everything You Need.<br><span class="text-gradient">Nothing You Don't.</span></h2>
+                <p>A complete AI-powered fitness ecosystem running entirely on your device — no cloud, no subscriptions, no compromises.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card feature-large" id="feature-body-scan">
+                    <div class="feature-icon-wrap">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></div>
+                    </div>
+                    <h3>AI Body Scan</h3>
+                    <p>Take two photos — frontal and side view — and our on-device depth estimation and skeletal matching models extract 15+ body measurements in seconds. Height, weight, chest, waist, hips, thighs, biceps, calf, forearm, wrist, and more — all estimated locally using EfficientNet regression.</p>
+                    <div class="feature-tags">
+                        <span>EfficientNet</span>
+                        <span>Depth Estimation</span>
+                        <span>On-Device</span>
+                    </div>
+                </div>
+
+                <div class="feature-card" id="feature-pose">
+                    <div class="feature-icon-wrap">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+                    </div>
+                    <h3>Real-Time Pose Estimation</h3>
+                    <p>BlazePose GHUM 3D tracks 33 skeletal keypoints in real-time through your camera. Every angle, every rep, every hold is measured with precision — giving you instant visual and auditory feedback on your form.</p>
+                    <div class="feature-tags">
+                        <span>MediaPipe</span>
+                        <span>33 Keypoints</span>
+                        <span>Real-Time</span>
+                    </div>
+                </div>
+
+                <div class="feature-card" id="feature-form">
+                    <div class="feature-icon-wrap">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                    </div>
+                    <h3>Live Form Correction</h3>
+                    <p>Dynamic HUD overlays show joint angles with color-coded states — green for correct form, red for posture warnings. Contextual cues like "Go Deeper", "Straighten Back", or "Lift Hips" guide you through every movement in real-time.</p>
+                    <div class="feature-tags">
+                        <span>Angle Tracking</span>
+                        <span>Color HUD</span>
+                        <span>Voice Cues</span>
+                    </div>
+                </div>
+
+                <div class="feature-card feature-large" id="feature-transformer">
+                    <div class="feature-icon-wrap">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg></div>
+                    </div>
+                    <h3>Transformer Workout Generator</h3>
+                    <p>A custom Decoder-Only Transformer neural network autoregressively generates personalized 30-day workout plans. Trained on 100,000 synthetic progressive training profiles, it translates your age, gender, BMI, body measurements, fitness goal, and experience level into intelligently sequenced daily routines with built-in progressive overload and deload cycles.</p>
+                    <div class="feature-tags">
+                        <span>Decoder-Only Transformer</span>
+                        <span>100K Training Samples</span>
+                        <span>Top-K Sampling</span>
+                        <span>Progressive Overload</span>
+                    </div>
+                </div>
+
+                <div class="feature-card" id="feature-ai-coach">
+                    <div class="feature-icon-wrap">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59a14.5 14.5 0 0 1 0-9.18l-7.98-6.19a24.09 24.09 0 0 0 0 21.56l7.98-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></div>
+                    </div>
+                    <h3>Trainium AI</h3>
+                    <p>A fully on-device conversational AI fitness coach powered by Gemma 4 running via LiteRT. It has complete context of your biometrics, workout history, streaks, and calorie data — enabling personalized diet plans, motivation, form tips, and recovery advice. Supports multilingual conversations with token-by-token streaming responses.</p>
+                    <div class="feature-tags">
+                        <span>Gemma 4</span>
+                        <span>On-Device LLM</span>
+                        <span>Multilingual</span>
+                        <span>Context-Aware</span>
+                    </div>
+                </div>
+
+                <div class="feature-card" id="feature-offline">
+                    <div class="feature-icon-wrap">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" x2="22" y1="2" y2="22"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 4.17-2.65"/><path d="M10.66 5c4.01-.36 8.14.9 11.34 3.76"/><path d="M16.85 11.25a10 10 0 0 1 2.22 1.68"/><path d="M5 13a10 10 0 0 1 5.24-2.76"/><line x1="12" x2="12.01" y1="20" y2="20"/></svg></div>
+                    </div>
+                    <h3>100% Offline Capable</h3>
+                    <p>Every AI model — pose estimation, body metrics, workout generation, and the AI chatbot — runs entirely on-device using LiteRT. No internet connection needed, no cloud dependency, complete privacy. Your data never leaves your phone.</p>
+                    <div class="feature-tags">
+                        <span>LiteRT</span>
+                        <span>On-Device ML</span>
+                        <span>Privacy-First</span>
+                    </div>
+                </div>
+
+                <div class="feature-card" id="feature-auth">
+                    <div class="feature-icon-wrap">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+                    </div>
+                    <h3>Secure Authentication</h3>
+                    <p>Sign in with Google or create a local offline account. Optional biometric lock with fingerprint authentication keeps your fitness data secure. Firebase Firestore sync ensures your progress travels across devices when signed in.</p>
+                    <div class="feature-tags">
+                        <span>Google Sign-In</span>
+                        <span>Biometric Lock</span>
+                        <span>Firebase Sync</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Engine Deep-Dive -->
+    <section id="ai-engine">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">The Intelligence</span>
+                <h2>Three AI Models.<br><span class="text-gradient">One Unified System.</span></h2>
+                <p>Trainium runs three specialized neural networks on-device, orchestrated together to deliver a seamless coaching experience.</p>
+            </div>
+
+            <div class="ai-pipeline">
+                <div class="pipeline-step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Biometrics Estimator</h3>
+                        <p>A dual-branch EfficientNet regression model processes frontal and side-view photos through background removal and silhouette extraction to predict 15+ anthropometric measurements. Trained on the BodyM dataset with CV2 preprocessing.</p>
+                        <div class="step-specs">
+                            <div class="spec"><span class="spec-label">Architecture</span><span class="spec-value">EfficientNet Dual-Branch</span></div>
+                            <div class="spec"><span class="spec-label">Preprocessing</span><span class="spec-value">rembg + CV2 Silhouette</span></div>
+                            <div class="spec"><span class="spec-label">Output</span><span class="spec-value">15+ Body Measurements</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pipeline-connector">
+                    <div class="connector-line"></div>
+                    <div class="connector-dot"></div>
+                    <div class="connector-line"></div>
+                </div>
+
+                <div class="pipeline-step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Workout Transformer</h3>
+                        <p>A causal decoder-only Transformer takes tokenized biometric profiles and autoregressively generates 30-day workout sequences. Trained with mixed-precision (AMP) and gradient accumulation on 100K synthetic profiles with Top-K (k=10) sampling at inference.</p>
+                        <div class="step-specs">
+                            <div class="spec"><span class="spec-label">Architecture</span><span class="spec-value">Causal Decoder-Only Transformer</span></div>
+                            <div class="spec"><span class="spec-label">Training Data</span><span class="spec-value">100,000 Synthetic Profiles</span></div>
+                            <div class="spec"><span class="spec-label">Sampling</span><span class="spec-value">Top-K (k=10) Autoregressive</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pipeline-connector">
+                    <div class="connector-line"></div>
+                    <div class="connector-dot"></div>
+                    <div class="connector-line"></div>
+                </div>
+
+                <div class="pipeline-step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>On-Device LLM Coach</h3>
+                        <p>Gemma 4 runs entirely on your phone via LiteRT, providing an intelligent conversational fitness coach. It has full context of your metrics, workout history, streaks, and calorie data — enabling personalized diet plans, motivation, and form tips in multiple languages.</p>
+                        <div class="step-specs">
+                            <div class="spec"><span class="spec-label">Model</span><span class="spec-value">Gemma 4 (LiteRT)</span></div>
+                            <div class="spec"><span class="spec-label">Context</span><span class="spec-value">Full User Profile + History</span></div>
+                            <div class="spec"><span class="spec-label">Languages</span><span class="spec-value">Multilingual (EN, HI, KN, TA...)</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercise Library -->
+    <section id="exercises">
+        <div class="section-glow right"></div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Exercise Library</span>
+                <h2>50+ Exercises.<br><span class="text-gradient">Every Rep Tracked.</span></h2>
+                <p>From squats to burpees, planks to pull-ups — each exercise is individually configured with precise angle thresholds, posture validation, and real-time feedback maps.</p>
+            </div>
+
+            <div class="exercise-categories">
+                <div class="exercise-category">
+                    <div class="cat-header">
+                        <div class="cat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg></div>
+                        <h4>Strength & Resistance</h4>
+                    </div>
+                    <div class="exercise-list">
+                        <span>Squat</span><span>Push-Up</span><span>Lunge</span><span>Bicep Curl</span>
+                        <span>Overhead Press</span><span>Bent Over Row</span><span>Tricep Dips</span>
+                        <span>Deadlift</span><span>Sumo Squat</span><span>Pike Push-Up</span>
+                        <span>Diamond Push-Up</span><span>Wall Push-Ups</span><span>Pull-Ups</span>
+                    </div>
+                </div>
+
+                <div class="exercise-category">
+                    <div class="cat-header">
+                        <div class="cat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div>
+                        <h4>Cardio & HIIT</h4>
+                    </div>
+                    <div class="exercise-list">
+                        <span>Jumping Jacks</span><span>High Knees</span><span>Mountain Climber</span>
+                        <span>Burpees</span><span>Boxer Shuffle</span><span>Plank Jacks</span>
+                        <span>Inchworm</span>
+                    </div>
+                </div>
+
+                <div class="exercise-category">
+                    <div class="cat-header">
+                        <div class="cat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+                        <h4>Core & Stability</h4>
+                    </div>
+                    <div class="exercise-list">
+                        <span>Plank</span><span>Side Plank</span><span>Crunches</span><span>Reverse Crunches</span>
+                        <span>Leg Raises</span><span>Russian Twist</span><span>Glute Bridge</span>
+                        <span>Superman</span><span>Flutter Kicks</span><span>Scissor Kicks</span>
+                        <span>Bird-Dog</span><span>High Plank to Low Plank</span>
+                    </div>
+                </div>
+
+                <div class="exercise-category">
+                    <div class="cat-header">
+                        <div class="cat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg></div>
+                        <h4>Flexibility & Recovery</h4>
+                    </div>
+                    <div class="exercise-list">
+                        <span>Cat-Cow Stretch</span><span>Child's Pose</span><span>Cobra Pose</span>
+                        <span>Downward Dog</span><span>Forward Fold</span><span>Arm Circles</span>
+                        <span>Torso Twists</span><span>Side Bend</span><span>T-Pose Hold</span>
+                    </div>
+                </div>
+
+                <div class="exercise-category">
+                    <div class="cat-header">
+                        <div class="cat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><path d="m9 20 3-6 3 6"/><path d="m6 8 6 2 6-2"/><path d="M12 10v4"/></svg></div>
+                        <h4>Lower Body Isolation</h4>
+                    </div>
+                    <div class="exercise-list">
+                        <span>Side Lunges</span><span>Reverse Lunges</span><span>Calf Raises</span>
+                        <span>Wall Sit</span><span>Donkey Kicks</span><span>Fire Hydrants</span>
+                        <span>Good Mornings</span><span>Lateral Raises</span><span>Shoulder Taps</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise-modes">
+                <h3>Three Workout Modes</h3>
+                <div class="modes-grid">
+                    <div class="mode-card">
+                        <div class="mode-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+                        <h4>AI Trainer Mode</h4>
+                        <p>Camera-powered real-time pose tracking with live rep counting, angle auditing, and instant form correction feedback. The AI watches your every move.</p>
+                    </div>
+                    <div class="mode-card">
+                        <div class="mode-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                        <h4>Self Mode</h4>
+                        <p>Timer-based workout execution without camera tracking. Perfect for exercises where camera positioning isn't ideal. Manual rep logging with guided timers.</p>
+                    </div>
+                    <div class="mode-card">
+                        <div class="mode-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                        <h4>Tutorial Mode</h4>
+                        <p>Watch professional video demonstrations of each exercise before attempting it. Learn proper form, breathing patterns, and technique tips.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Section -->
+    <section id="analytics">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Analytics & Tracking</span>
+                <h2>Your Progress.<br><span class="text-gradient">Visualized Beautifully.</span></h2>
+                <p>Comprehensive analytics dashboards with lifetime stats, daily goals, weight tracking, workout history, and consistency metrics.</p>
+            </div>
+
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <div class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg></div>
+                    <h4>Lifetime Progress</h4>
+                    <p>Track total workouts completed, lifetime calories burned, and total active minutes. Your fitness journey visualized from day one.</p>
+                </div>
+                <div class="analytics-card">
+                    <div class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div>
+                    <h4>Streak Tracking</h4>
+                    <p>Weekly consistency grids, current streak counters, and personal best streaks. Visual motivation to keep your chain unbroken.</p>
+                </div>
+                <div class="analytics-card">
+                    <div class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+                    <h4>Daily Goals</h4>
+                    <p>Customizable daily calorie and duration targets with circular progress rings. Edit your goals anytime to match your evolving fitness level.</p>
+                </div>
+                <div class="analytics-card">
+                    <div class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></div>
+                    <h4>Weight Tracking</h4>
+                    <p>Interactive weight trend charts with goal weight targets, 30-day delta calculations, and historical logging. Tap chart nodes for detailed entries.</p>
+                </div>
+                <div class="analytics-card">
+                    <div class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg></div>
+                    <h4>Today's Activity</h4>
+                    <p>Real-time view of today's completed workouts, exercise names, durations, calorie burns, and accuracy scores. Full exercise-by-exercise breakdown of your workout plan.</p>
+                </div>
+                <div class="analytics-card">
+                    <div class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+                    <h4>BMI & Biometrics</h4>
+                    <p>Full biometric profile card showing all 15+ AI-estimated body measurements. Editable height and weight with automatic BMI recalculation synced globally.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Coach Section -->
+    <section id="ai-coach">
+        <div class="section-glow"></div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Intelligent Coaching</span>
+                <h2>Chat With Your<br><span class="text-gradient">AI Fitness Brain.</span></h2>
+                <p>Trainium AI is a multilingual conversational coach that knows your body, your goals, your workout history, and your progress — all running on-device via Gemma 4.</p>
+            </div>
+
+            <div class="coach-features">
+                <div class="coach-chat-preview">
+                    <div class="chat-window">
+                        <div class="chat-header-bar">
+                            <button class="chat-back-btn" id="chat-back-btn" aria-label="Back">
+                                <i data-lucide="arrow-left"></i>
+                            </button>
+                            <div class="chat-header-title">
+                                <span class="chat-title">Trainium AI Chat</span>
+                                <span class="chat-subtitle">on device</span>
+                            </div>
+                            <div class="chat-header-actions">
+                                <button class="chat-action-btn" id="chat-refresh-btn" title="New Chat" aria-label="New Chat">
+                                    <i data-lucide="refresh-cw"></i>
+                                </button>
+                                <button class="chat-action-btn" id="chat-history-btn" title="Saved Chats" aria-label="Saved Chats">
+                                    <i data-lucide="history"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chat-messages" id="chat-messages">
+                            <!-- Populated dynamically by JS to support session load/unload and clean UI flow -->
+                        </div>
+                        <div class="chat-chips-container">
+                            <div class="chat-chips" id="chat-chips">
+                                <span class="chat-chip" data-chip="Diet Plan">Diet Plan</span>
+                                <span class="chat-chip" data-chip="Motivation">Motivation</span>
+                                <span class="chat-chip" data-chip="Form Tips">Form Tips</span>
+                                <span class="chat-chip" id="language-chip">
+                                    <i data-lucide="globe"></i>Language
+                                </span>
+                            </div>
+                            <div class="chat-sub-chips hidden" id="chat-sub-chips">
+                                <span class="sub-chip" data-lang="English">English</span>
+                                <span class="sub-chip" data-lang="Hindi">Hindi</span>
+                                <span class="sub-chip" data-lang="Kannada">Kannada</span>
+                                <span class="sub-chip" data-lang="Tamil">Tamil</span>
+                                <span class="sub-chip" data-lang="Telugu">Telugu</span>
+                            </div>
+                        </div>
+                        <div class="chat-input-container">
+                            <input type="text" id="chat-input" placeholder="Ask Trainium AI..." autocomplete="off">
+                            <button id="chat-send" aria-label="Send">
+                                <i data-lucide="send"></i>
+                            </button>
+                        </div>
+                        <!-- Saved Chats History Drawer -->
+                        <div class="chat-history-drawer" id="chat-history-drawer">
+                            <div class="drawer-header">
+                                <span class="drawer-title">Saved Chats</span>
+                                <button class="drawer-close" id="drawer-close" aria-label="Close">
+                                    <i data-lucide="x"></i>
+                                </button>
+                            </div>
+                            <div class="drawer-content">
+                                <div class="drawer-sessions-list" id="drawer-sessions-list">
+                                    <!-- Saved sessions lists loaded dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="coach-capabilities">
+                    <div class="capability">
+                        <div class="cap-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/></svg></div>
+                        <h4>Personalized Diet Plans</h4>
+                        <p>Calorie-counted meal plans tailored to your body metrics, BMI, and fitness goals with macro breakdowns and meal timing.</p>
+                    </div>
+                    <div class="capability">
+                        <div class="cap-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+                        <h4>Multilingual Support</h4>
+                        <p>Coach in English, Hindi, Kannada, Tamil, Telugu, Malayalam, and more. Just say "assist me in Hindi" and the entire conversation switches.</p>
+                    </div>
+                    <div class="capability">
+                        <div class="cap-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg></div>
+                        <h4>Full Context Awareness</h4>
+                        <p>The AI has access to your body measurements, workout history, streaks, calorie goals, weight logs, and active workout plan — enabling truly personalized advice.</p>
+                    </div>
+                    <div class="capability">
+                        <div class="cap-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+                        <h4>Streaming Responses</h4>
+                        <p>Token-by-token streaming generation creates a natural conversational experience. Chat history is saved locally with full session management.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download / CTA Section -->
+    <section id="download">
+        <div class="download-glow"></div>
+        <div class="container">
+            <div class="download-content">
+                <span class="section-tag">Get Started</span>
+                <h2>Start Your AI-Powered<br><span class="text-gradient">Fitness Journey Today.</span></h2>
+                <p>Download Trainium AI and let cutting-edge on-device intelligence transform the way you train. No subscriptions. No cloud dependency. Just results.</p>
+                <div class="download-actions">
+                    <a href="https://drive.google.com/file/d/1eVV8QUV1tHFSVkKCrpt77-qoDg6G4NN9/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-primary btn-large">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48A5.84 5.84 0 0 0 12 1c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31A5.98 5.98 0 0 0 6 7h12c0-2.12-1.1-3.98-2.77-5.05l.3.21zM10 5H9V4h1v1zm5 0h-1V4h1v1z"/></svg>
+                        <span>Download for Android</span>
+                    </a>
+                </div>
+                <div class="download-note">
+                    Available as APK · Requires Android 8.0+
+                </div>
+            </div>
+        </div>
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-glow"></div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Get in Touch</span>
+                <h2>Contact Us</h2>
+                <p>Have questions about Trainium AI? Reach out to our support team and we'll get back to you as soon as possible.</p>
+            </div>
+            <div class="contact-box">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="16" x="2" y="4" rx="2"/>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                        </svg>
+                    </div>
+                    <h3>Support Email</h3>
+                    <a href="mailto:alynemoclaw@gmail.com" class="contact-email">alynemoclaw@gmail.com</a>
+                    <p class="contact-desc">Drop us a line anytime. We usually respond within 24 hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="logo.png" alt="Trainium AI Logo" class="logo-img">
+                    <span class="logo-text">TRAINIUM</span>
+                    <p class="footer-tagline">Your AI Fitness Coach</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#features">Features</a>
+                    <a href="#ai-engine">AI Engine</a>
+                    <a href="#exercises">Exercises</a>
+                    <a href="#analytics">Analytics</a>
+                    <a href="#ai-coach">AI Coach</a>
+                    <a href="#contact">Contact Us</a>
+                </div>
+                <div class="footer-tech">
+                    <span>MediaPipe</span>
+                    <span>PyTorch</span>
+                    <span>LiteRT</span>
+                    <span>Gemma 4</span>
+                    <span>Firebase</span>
+                    <span>Jetpack Compose</span>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Trainium AI. Built with intelligence.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

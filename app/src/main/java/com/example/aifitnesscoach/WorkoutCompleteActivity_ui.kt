@@ -28,9 +28,16 @@ class WorkoutCompleteActivity_ui : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val durationMinutes = intent.getIntExtra("EXTRA_DURATION_MINUTES", 15)
+        val caloriesBurned = intent.getFloatExtra("EXTRA_CALORIES_BURNED", 150f)
+        val isCustomWorkout = intent.getBooleanExtra("IS_CUSTOM_WORKOUT", false)
+
         setContent {
             TrainiumTheme {
                 WorkoutCompleteScreen(
+                    durationMinutes = durationMinutes,
+                    caloriesBurned = caloriesBurned,
+                    isCustomWorkout = isCustomWorkout,
                     onHome = {
                         val intent = Intent(this, HomeActivity_ui::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -45,12 +52,15 @@ class WorkoutCompleteActivity_ui : AppCompatActivity() {
 
 @Composable
 fun WorkoutCompleteScreen(
+    durationMinutes: Int,
+    caloriesBurned: Float,
+    isCustomWorkout: Boolean,
     onHome: () -> Unit
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black),
+            .background(BackgroundBlack),
         contentAlignment = Alignment.Center
     ) {
         // Ambient glow
@@ -101,15 +111,21 @@ fun WorkoutCompleteScreen(
 
             Text(
                 text = "Workout Complete!",
-                color = Color.White,
+                color = TextPrimary,
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Black
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            val descriptionText = if (isCustomWorkout) {
+                "Great job! You've successfully finished your custom workout session."
+            } else {
+                "Great job! You've successfully finished your training routine. Your metrics have been saved, and your progress was updated."
+            }
+
             Text(
-                text = "Great job! You've successfully finished your training routine. Your metrics have been saved, and your progress was updated.",
+                text = descriptionText,
                 color = TextSecondary,
                 fontSize = 15.sp,
                 textAlign = TextAlign.Center,
@@ -128,15 +144,15 @@ fun WorkoutCompleteScreen(
                     modifier = Modifier
                         .weight(1f)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(Color.White.copy(alpha = 0.04f))
-                        .border(1.dp, Color.White.copy(alpha = 0.08f), RoundedCornerShape(12.dp))
+                        .background(CardOverlayColor.copy(alpha = 0.04f))
+                        .border(1.dp, CardOverlayColor.copy(alpha = 0.08f), RoundedCornerShape(12.dp))
                         .padding(12.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text("Duration", color = TextSecondary, fontSize = 11.sp, fontWeight = FontWeight.Bold)
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("45m", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text("${durationMinutes}m", color = TextPrimary, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                 }
 
@@ -144,15 +160,15 @@ fun WorkoutCompleteScreen(
                     modifier = Modifier
                         .weight(1f)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(Color.White.copy(alpha = 0.04f))
-                        .border(1.dp, Color.White.copy(alpha = 0.08f), RoundedCornerShape(12.dp))
+                        .background(CardOverlayColor.copy(alpha = 0.04f))
+                        .border(1.dp, CardOverlayColor.copy(alpha = 0.08f), RoundedCornerShape(12.dp))
                         .padding(12.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text("Burned", color = TextSecondary, fontSize = 11.sp, fontWeight = FontWeight.Bold)
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("320 kcal", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text(String.format(java.util.Locale.US, "%.1f kcal", caloriesBurned), color = TextPrimary, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                 }
 
@@ -160,8 +176,8 @@ fun WorkoutCompleteScreen(
                     modifier = Modifier
                         .weight(1f)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(Color.White.copy(alpha = 0.04f))
-                        .border(1.dp, Color.White.copy(alpha = 0.08f), RoundedCornerShape(12.dp))
+                        .background(CardOverlayColor.copy(alpha = 0.04f))
+                        .border(1.dp, CardOverlayColor.copy(alpha = 0.08f), RoundedCornerShape(12.dp))
                         .padding(12.dp),
                     contentAlignment = Alignment.Center
                 ) {

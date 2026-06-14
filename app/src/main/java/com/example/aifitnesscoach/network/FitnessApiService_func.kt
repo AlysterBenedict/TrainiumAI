@@ -24,18 +24,26 @@ data class BiometricsResponse(
 )
 
 data class UserData(
-    @SerializedName("Age") val age: Int,
-    @SerializedName("Gender") val gender: String,
-    @SerializedName("height_cm") val heightCm: Float,
-    @SerializedName("weight_kg") val weightKg: Float,
-    @SerializedName("Goal") val goal: String,
-    @SerializedName("level") val level: String,
-    @SerializedName("BMI") val bmi: Float,
-    @SerializedName("chest_cm") val chestCm: Float,
-    @SerializedName("waist_cm") val waistCm: Float,
-    @SerializedName("hip_cm") val hipCm: Float,
-    @SerializedName("thigh_cm") val thighCm: Float,
-    @SerializedName("bicep_cm") val bicepCm: Float
+    @SerializedName("Age") val age: Int = 0,
+    @SerializedName("Gender") val gender: String = "",
+    @SerializedName("height_cm") val heightCm: Float = 0f,
+    @SerializedName("weight_kg") val weightKg: Float = 0f,
+    @SerializedName("Goal") val goal: String = "",
+    @SerializedName("level") val level: String = "",
+    @SerializedName("BMI") val bmi: Float = 0f,
+    @SerializedName("chest_cm") val chestCm: Float = 0f,
+    @SerializedName("waist_cm") val waistCm: Float = 0f,
+    @SerializedName("hip_cm") val hipCm: Float = 0f,
+    @SerializedName("thigh_cm") val thighCm: Float = 0f,
+    @SerializedName("bicep_cm") val bicepCm: Float = 0f,
+    @SerializedName("ankle") val ankleCm: Float = 0f,
+    @SerializedName("arm-length") val armLengthCm: Float = 0f,
+    @SerializedName("calf") val calfCm: Float = 0f,
+    @SerializedName("forearm") val forearmCm: Float = 0f,
+    @SerializedName("leg-length") val legLengthCm: Float = 0f,
+    @SerializedName("shoulder-breadth") val shoulderBreadthCm: Float = 0f,
+    @SerializedName("shoulder-to-crotch") val shoulderToCrotchCm: Float = 0f,
+    @SerializedName("wrist") val wristCm: Float = 0f
 )
 
 data class WorkoutResponse(

@@ -10,6 +10,7 @@
     <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application
+        android:name=".TrainiumApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -24,30 +25,39 @@
         
         <activity
             android:name=".WorkoutCompleteActivity_ui"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".RestActivity_ui"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".WorkoutActivity_ui"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".CameraCaptureActivity_ui"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".PhotoInstructionsActivity_ui"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".OnboardingFormActivity_ui"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".HomeActivity_ui"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".LoginActivity_ui"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".StartActivity_ui"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,12 +66,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".WorkoutPlanActivity_ui" android:exported="false" />
-        <activity android:name=".DayExercisesActivity_ui" android:exported="false" />
-        <activity android:name=".CustomWorkoutActivity_ui" android:exported="false" />
-        <activity android:name=".ProfileActivity_ui" android:exported="false" />
-        <activity android:name=".ChatbotActivity_ui" android:exported="false" />
-        <activity android:name=".ReportsActivity_ui" android:exported="false" />
+        <activity android:name=".WorkoutPlanActivity_ui" android:screenOrientation="portrait" android:exported="false" />
+        <activity android:name=".DayExercisesActivity_ui" android:screenOrientation="portrait" android:exported="false" />
+        <activity android:name=".CustomWorkoutActivity_ui" android:screenOrientation="portrait" android:exported="false" />
+        <activity android:name=".ProfileActivity_ui" android:screenOrientation="portrait" android:exported="false" />
+        <activity android:name=".ChatbotActivity_ui" android:screenOrientation="portrait" android:exported="false" />
+        <activity android:name=".ReportsActivity_ui" android:screenOrientation="portrait" android:exported="false" />
 
     </application>
 

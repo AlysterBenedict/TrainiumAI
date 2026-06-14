@@ -6,4 +6,5 @@ object Constants_func {
     const val EXTRA_EXERCISE_DURATION = "EXERCISE_DURATION"
     const val EXTRA_REST_DURATION = "REST_DURATION"
     const val EXTRA_NEXT_EXERCISE_NAME = "NEXT_EXERCISE_NAME"
+    const val EXTRA_DAY_TITLE = "DAY_TITLE"
 }

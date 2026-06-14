@@ -18,6 +18,10 @@ android {
         compose = true
     }
 
+    androidResources {
+        noCompress.add("litertlm")
+    }
+
     defaultConfig {
 
         applicationId = "com.example.aifitnesscoach"
@@ -109,6 +113,7 @@ dependencies {
 
     // Firebase Authentication
     implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")// Google Sign-In SDK
     implementation("com.google.android.gms:play-services-auth:21.2.0")
@@ -142,6 +147,12 @@ dependencies {
 // MediaPipe
 
     implementation("com.google.mediapipe:tasks-vision:0.10.14")
+
+    // Google ML Kit Selfie Segmentation for local body silhouette extraction
+    implementation("com.google.mlkit:segmentation-selfie:16.0.0-beta4")
+
+    // LiteRT-LM for on-device LLM (Gemma 4 E2B) inference
+    implementation("com.google.ai.edge.litertlm:litertlm-android:0.12.0")
 
 
 

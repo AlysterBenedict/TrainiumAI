@@ -13,6 +13,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -23,14 +24,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.animation.core.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.lifecycle.lifecycleScope
 import coil.compose.rememberAsyncImagePainter
+import com.example.aifitnesscoach.ml.WorkoutGeneratorOnDevice
 import com.example.aifitnesscoach.network.RetrofitClient_func
 import com.example.aifitnesscoach.network.UserData
 import com.google.gson.Gson
@@ -43,6 +50,7 @@ class OnboardingFormActivity_ui : AppCompatActivity() {
     private var frontalImageUri: Uri? = null
     private var sideImageUri: Uri? = null
     private var isLoading = mutableStateOf(false)
+    private var showSuccessOverlay = mutableStateOf(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,14 +69,20 @@ class OnboardingFormActivity_ui : AppCompatActivity() {
 
         setContent {
             TrainiumTheme {
-                OnboardingFormScreen(
-                    frontalImageUri = frontalImageUri,
-                    sideImageUri = sideImageUri,
-                    isLoading = isLoading.value,
-                    onSubmit = { age, gender, goal, difficulty ->
-                        generateWorkoutPlan(age, gender, goal, difficulty)
+                Box(modifier = Modifier.fillMaxSize()) {
+                    OnboardingFormScreen(
+                        frontalImageUri = frontalImageUri,
+                        sideImageUri = sideImageUri,
+                        isLoading = isLoading.value,
+                        onSubmit = { age, gender, goal, difficulty ->
+                            generateWorkoutPlan(age, gender, goal, difficulty)
+                        }
+                    )
+
+                    if (showSuccessOverlay.value) {
+                        SuccessOverlay(message = "Personalized 30-day workout plan generated!")
                     }
-                )
+                }
             }
         }
     }
@@ -110,30 +124,56 @@ class OnboardingFormActivity_ui : AppCompatActivity() {
         val userData = UserData(
             age = age, gender = gender, heightCm = height, weightKg = weight,
             goal = goal, level = difficulty, bmi = bmi,
-            chestCm = chest, waistCm = waist, hipCm = hip, thighCm = thigh, bicepCm = bicep
+            chestCm = chest, waistCm = waist, hipCm = hip, thighCm = thigh, bicepCm = bicep,
+            ankleCm = biometricsData?.get("ankle") ?: 0f,
+            armLengthCm = biometricsData?.get("arm-length") ?: 0f,
+            calfCm = biometricsData?.get("calf") ?: 0f,
+            forearmCm = biometricsData?.get("forearm") ?: 0f,
+            legLengthCm = biometricsData?.get("leg-length") ?: 0f,
+            shoulderBreadthCm = biometricsData?.get("shoulder-breadth") ?: 0f,
+            shoulderToCrotchCm = biometricsData?.get("shoulder-to-crotch") ?: 0f,
+            wristCm = biometricsData?.get("wrist") ?: 0f
         )
 
         lifecycleScope.launch {
             try {
-                val response = RetrofitClient_func.fitnessApi.generateWorkout(userData)
+                val workoutPlan = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                    val generator = WorkoutGeneratorOnDevice.getInstance(this@OnboardingFormActivity_ui)
+                    generator.generateWorkout(userData)
+                }
+                
+                // Hide loader and show success overlay
                 isLoading.value = false
+                showSuccessOverlay.value = true
 
-                val workoutPlanJson = Gson().toJson(response.workoutPlan)
-                val sharedPrefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
+                val sharedPrefs = getTrainiumPrefs("app_prefs")
                 sharedPrefs.edit()
-                    .putString("SAVED_WORKOUT_PLAN", workoutPlanJson)
                     .putString("SAVED_USER_METRICS", Gson().toJson(userData))
                     .apply()
 
+                // Log the scanned weight into weight tracking history for Reports > Weight tab
+                com.example.aifitnesscoach.network.FirebaseSyncHelper.addWeight(
+                    this@OnboardingFormActivity_ui,
+                    weight
+                )
+
+                // Sync profile and workout plan to Firebase Firestore
+                com.example.aifitnesscoach.network.FirebaseSyncHelper.syncProfileToFirebase(this@OnboardingFormActivity_ui, userData)
+                val sanitizedJson = com.example.aifitnesscoach.network.FirebaseSyncHelper.sanitizeAndSaveWorkoutPlan(this@OnboardingFormActivity_ui, workoutPlan)
+
+                // Delay 1.5 seconds for the success overlay screen to show
+                kotlinx.coroutines.delay(1500)
+                showSuccessOverlay.value = false
+
                 val intent = Intent(this@OnboardingFormActivity_ui, WorkoutPlanActivity_ui::class.java).apply {
-                    putExtra("WORKOUT_PLAN", workoutPlanJson)
+                    putExtra("WORKOUT_PLAN", sanitizedJson)
                 }
                 startActivity(intent)
                 finishAffinity()
 
             } catch (e: Exception) {
                 isLoading.value = false
-                Log.e("OnboardingFormActivity_ui", "Error generating workout plan", e)
+                Log.e("OnboardingFormActivity_ui", "Error generating workout plan locally", e)
                 Toast.makeText(this@OnboardingFormActivity_ui, "Error: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
@@ -164,7 +204,7 @@ fun OnboardingFormScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(BackgroundBlack)
     ) {
         Column(
             modifier = Modifier
@@ -178,7 +218,7 @@ fun OnboardingFormScreen(
             
             Text(
                 text = "Personalize Your Plan",
-                color = Color.White,
+                color = TextPrimary,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.fillMaxWidth()
@@ -204,7 +244,7 @@ fun OnboardingFormScreen(
                         .height(150.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .background(Color(0xFF111111))
-                        .border(1.dp, Color.White.copy(alpha = 0.1f), RoundedCornerShape(12.dp)),
+                        .border(1.dp, CardOverlayColor.copy(alpha = 0.1f), RoundedCornerShape(12.dp)),
                     contentAlignment = Alignment.Center
                 ) {
                     if (frontalImageUri != null) {
@@ -225,7 +265,7 @@ fun OnboardingFormScreen(
                         .height(150.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .background(Color(0xFF111111))
-                        .border(1.dp, Color.White.copy(alpha = 0.1f), RoundedCornerShape(12.dp)),
+                        .border(1.dp, CardOverlayColor.copy(alpha = 0.1f), RoundedCornerShape(12.dp)),
                     contentAlignment = Alignment.Center
                 ) {
                     if (sideImageUri != null) {
@@ -249,10 +289,10 @@ fun OnboardingFormScreen(
                 onValueChange = { age = it },
                 label = { Text("Age", color = TextSecondary) },
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedTextColor = Color.White,
-                    unfocusedTextColor = Color.White,
+                    focusedTextColor = TextPrimary,
+                    unfocusedTextColor = TextPrimary,
                     focusedBorderColor = BrandLime,
-                    unfocusedBorderColor = Color.White.copy(alpha = 0.12f),
+                    unfocusedBorderColor = CardOverlayColor.copy(alpha = 0.12f),
                     focusedContainerColor = Color(0xFF111111),
                     unfocusedContainerColor = Color(0xFF111111)
                 ),
@@ -278,7 +318,7 @@ fun OnboardingFormScreen(
                             onClick = { selectedGender = "Male" },
                             colors = RadioButtonDefaults.colors(selectedColor = BrandLime)
                         )
-                        Text("Male", color = Color.White)
+                        Text("Male", color = TextPrimary)
                     }
                     Spacer(modifier = Modifier.width(32.dp))
                     Row(
@@ -290,7 +330,7 @@ fun OnboardingFormScreen(
                             onClick = { selectedGender = "Female" },
                             colors = RadioButtonDefaults.colors(selectedColor = BrandLime)
                         )
-                        Text("Female", color = Color.White)
+                        Text("Female", color = TextPrimary)
                     }
                 }
             }
@@ -307,23 +347,23 @@ fun OnboardingFormScreen(
                         .height(56.dp)
                         .clip(RoundedCornerShape(8.dp))
                         .background(Color(0xFF111111))
-                        .border(1.dp, Color.White.copy(alpha = 0.12f), RoundedCornerShape(8.dp))
+                        .border(1.dp, CardOverlayColor.copy(alpha = 0.12f), RoundedCornerShape(8.dp))
                         .clickable { isGoalDropdownExpanded = true }
                         .padding(horizontal = 16.dp),
                     contentAlignment = Alignment.CenterStart
                 ) {
-                    Text(selectedGoal, color = Color.White)
+                    Text(selectedGoal, color = TextPrimary)
                     DropdownMenu(
                         expanded = isGoalDropdownExpanded,
                         onDismissRequest = { isGoalDropdownExpanded = false },
                         modifier = Modifier
                             .fillMaxWidth(0.85f)
                             .background(Color(0xFF111111))
-                            .border(1.dp, Color.White.copy(alpha = 0.1f), RoundedCornerShape(8.dp))
+                            .border(1.dp, CardOverlayColor.copy(alpha = 0.1f), RoundedCornerShape(8.dp))
                     ) {
                         goalsList.forEach { goalOption ->
                             DropdownMenuItem(
-                                text = { Text(goalOption, color = Color.White) },
+                                text = { Text(goalOption, color = TextPrimary) },
                                 onClick = {
                                     selectedGoal = goalOption
                                     isGoalDropdownExpanded = false
@@ -346,23 +386,23 @@ fun OnboardingFormScreen(
                         .height(56.dp)
                         .clip(RoundedCornerShape(8.dp))
                         .background(Color(0xFF111111))
-                        .border(1.dp, Color.White.copy(alpha = 0.12f), RoundedCornerShape(8.dp))
+                        .border(1.dp, CardOverlayColor.copy(alpha = 0.12f), RoundedCornerShape(8.dp))
                         .clickable { isDifficultyDropdownExpanded = true }
                         .padding(horizontal = 16.dp),
                     contentAlignment = Alignment.CenterStart
                 ) {
-                    Text(selectedDifficulty, color = Color.White)
+                    Text(selectedDifficulty, color = TextPrimary)
                     DropdownMenu(
                         expanded = isDifficultyDropdownExpanded,
                         onDismissRequest = { isDifficultyDropdownExpanded = false },
                         modifier = Modifier
                             .fillMaxWidth(0.85f)
                             .background(Color(0xFF111111))
-                            .border(1.dp, Color.White.copy(alpha = 0.1f), RoundedCornerShape(8.dp))
+                            .border(1.dp, CardOverlayColor.copy(alpha = 0.1f), RoundedCornerShape(8.dp))
                     ) {
                         difficultyList.forEach { diffOption ->
                             DropdownMenuItem(
-                                text = { Text(diffOption, color = Color.White) },
+                                text = { Text(diffOption, color = TextPrimary) },
                                 onClick = {
                                     selectedDifficulty = diffOption
                                     isDifficultyDropdownExpanded = false
@@ -381,22 +421,197 @@ fun OnboardingFormScreen(
                 .fillMaxWidth()
                 .background(
                     Brush.verticalGradient(
-                        colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.8f))
+                        colors = listOf(Color.Transparent, BackgroundBlack.copy(alpha = 0.8f))
                     )
                 )
                 .padding(24.dp)
         ) {
-            if (isLoading) {
-                CircularProgressIndicator(
-                    color = BrandLime,
-                    modifier = Modifier.align(Alignment.Center).size(36.dp)
+            TrainiumButton(
+                text = "GENERATE WORKOUT PLAN",
+                onClick = { onSubmit(age, selectedGender, selectedGoal, selectedDifficulty) }
+            )
+        }
+
+        // Full-screen Transformer processing loading animation overlay
+        if (isLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(BackgroundBlack),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.padding(32.dp)
+                ) {
+                    TransformerProcessingAnimation()
+
+                    Spacer(modifier = Modifier.height(32.dp))
+
+                    Text(
+                        text = "Generating your 30-day personalized workout plan using Transformer...",
+                        color = TextPrimary,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        lineHeight = 26.sp
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Text(
+                        text = "Analyzing biometrics & local intelligence on-device",
+                        color = TextSecondary,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TransformerProcessingAnimation() {
+    val infiniteTransition = rememberInfiniteTransition(label = "orbit")
+
+    // Rotate animation
+    val rotationAngle by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 360f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(3000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "rotation"
+    )
+
+    // Counter rotate animation
+    val counterRotationAngle by infiniteTransition.animateFloat(
+        initialValue = 360f,
+        targetValue = 0f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "counter_rotation"
+    )
+
+    // Pulse animation for center
+    val centerScale by infiniteTransition.animateFloat(
+        initialValue = 0.8f,
+        targetValue = 1.2f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1200, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "pulse"
+    )
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.size(140.dp)
+    ) {
+        // Outer glowing ring rotating clockwise
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer(rotationZ = rotationAngle)
+                .border(2.dp, Brush.sweepGradient(listOf(BrandLime, Color.Transparent, BrandLime)), CircleShape)
+        )
+
+        // Middle ring rotating counter-clockwise
+        Box(
+            modifier = Modifier
+                .size(100.dp)
+                .graphicsLayer(rotationZ = counterRotationAngle)
+                .border(1.5.dp, Brush.sweepGradient(listOf(CardOverlayColor.copy(alpha = 0.4f), Color.Transparent, BrandLime.copy(alpha = 0.3f))), CircleShape)
+        )
+
+        // Pulsing glowing core
+        Box(
+            modifier = Modifier
+                .size(60.dp)
+                .graphicsLayer(scaleX = centerScale, scaleY = centerScale)
+                .clip(CircleShape)
+                .background(
+                    Brush.radialGradient(
+                        colors = listOf(BrandLime, BrandLime.copy(alpha = 0.3f), Color.Transparent)
+                    )
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(28.dp)
+                    .clip(CircleShape)
+                    .background(BrandLime)
+            )
+        }
+    }
+}
+
+@Composable
+private fun SuccessOverlay(message: String) {
+    var scale by remember { mutableStateOf(0f) }
+    LaunchedEffect(Unit) {
+        androidx.compose.animation.core.animate(
+            initialValue = 0f,
+            targetValue = 1f,
+            animationSpec = androidx.compose.animation.core.spring(
+                dampingRatio = androidx.compose.animation.core.Spring.DampingRatioMediumBouncy,
+                stiffness = androidx.compose.animation.core.Spring.StiffnessLow
+            )
+        ) { value, _ ->
+            scale = value
+        }
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(BackgroundBlack.copy(alpha = 0.85f)),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .graphicsLayer(
+                    scaleX = scale,
+                    scaleY = scale
                 )
-            } else {
-                TrainiumButton(
-                    text = "GENERATE WORKOUT PLAN",
-                    onClick = { onSubmit(age, selectedGender, selectedGoal, selectedDifficulty) }
+                .clip(RoundedCornerShape(28.dp))
+                .background(Color(0xFF121212))
+                .border(1.dp, CardOverlayColor.copy(alpha = 0.15f), RoundedCornerShape(28.dp))
+                .padding(horizontal = 32.dp, vertical = 40.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
+            // Checkmark Circle
+            Box(
+                modifier = Modifier
+                    .size(80.dp)
+                    .clip(CircleShape)
+                    .background(BrandLime.copy(alpha = 0.15f))
+                    .border(2.dp, BrandLime, CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "Success",
+                    tint = BrandLime,
+                    modifier = Modifier.size(48.dp)
                 )
             }
+            Spacer(modifier = Modifier.height(24.dp))
+            Text(
+                text = message,
+                color = TextPrimary,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
         }
     }
 }

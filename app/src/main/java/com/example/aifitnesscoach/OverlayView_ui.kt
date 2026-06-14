@@ -50,6 +50,10 @@ class OverlayView_ui(context: Context?, attrs: AttributeSet?) : View(context, at
             linePaint.color = jointColor
             pointPaint.color = jointColor
 
+            // Clip all drawings to the view's actual boundaries
+            canvas.save()
+            canvas.clipRect(0f, 0f, width.toFloat(), height.toFloat())
+
             for (landmark in poseLandmarkerResult.landmarks()) {
                 for (normalizedLandmark in landmark) {
                     canvas.drawPoint(
@@ -69,6 +73,8 @@ class OverlayView_ui(context: Context?, attrs: AttributeSet?) : View(context, at
                     )
                 }
             }
+
+            canvas.restore()
         }
     }
 

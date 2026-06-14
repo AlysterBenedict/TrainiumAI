@@ -39,15 +39,11 @@ class CustomWorkoutActivity_ui : AppCompatActivity() {
 
         setContent {
             var selectedExercises by remember { mutableStateOf(setOf<ExerciseConfig_func>()) }
-            var exerciseDurationStr by remember { mutableStateOf("30") }
-            var restDurationStr by remember { mutableStateOf("15") }
 
             TrainiumTheme {
                 CustomWorkoutScreen(
                     exerciseList = Exercises_func.list,
                     selectedExercises = selectedExercises,
-                    exerciseDurationStr = exerciseDurationStr,
-                    restDurationStr = restDurationStr,
                     onExerciseToggled = { exercise ->
                         selectedExercises = if (selectedExercises.contains(exercise)) {
                             selectedExercises - exercise
@@ -55,42 +51,33 @@ class CustomWorkoutActivity_ui : AppCompatActivity() {
                             selectedExercises + exercise
                         }
                     },
-                    onExerciseDurationChanged = { exerciseDurationStr = it },
-                    onRestDurationChanged = { restDurationStr = it },
                     onBack = { finish() },
                     onStartWorkout = {
-                        startWorkout(selectedExercises.toList(), exerciseDurationStr, restDurationStr)
+                        startWorkout(selectedExercises.toList())
                     }
                 )
             }
         }
     }
 
-    private fun startWorkout(selected: List<ExerciseConfig_func>, exerciseDurationStr: String, restDurationStr: String) {
+    private fun startWorkout(selected: List<ExerciseConfig_func>) {
         window.decorView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
 
         if (selected.isEmpty()) {
             Toast.makeText(this, "Please select at least one exercise.", Toast.LENGTH_SHORT).show()
             return
         }
-        if (exerciseDurationStr.isBlank() || restDurationStr.isBlank()) {
-            Toast.makeText(this, "Please enter both durations.", Toast.LENGTH_SHORT).show()
-            return
-        }
 
-        val exerciseDuration = exerciseDurationStr.toLongOrNull()
-        val restDuration = restDurationStr.toLongOrNull()
-
-        if (exerciseDuration == null || restDuration == null) {
-            Toast.makeText(this, "Please enter valid durations.", Toast.LENGTH_SHORT).show()
-            return
-        }
+        val prefs = getTrainiumPrefs("app_prefs")
+        val exerciseDuration = prefs.getInt("pref_exercise_duration_seconds", 30).toLong()
+        val restDuration = prefs.getInt("pref_rest_duration_seconds", 15).toLong()
 
         val intent = Intent(this, WorkoutActivity_ui::class.java).apply {
             putStringArrayListExtra(Constants_func.EXTRA_WORKOUT_PLAN, ArrayList(selected.map { it.name }))
             putExtra(Constants_func.EXTRA_EXERCISE_DURATION, exerciseDuration * 1000)
             putExtra(Constants_func.EXTRA_REST_DURATION, restDuration * 1000)
             putExtra(Constants_func.EXTRA_CURRENT_INDEX, 0)
+            putExtra("IS_CUSTOM_WORKOUT", true)
         }
         startActivity(intent)
     }
@@ -101,24 +88,20 @@ class CustomWorkoutActivity_ui : AppCompatActivity() {
 fun CustomWorkoutScreen(
     exerciseList: List<ExerciseConfig_func>,
     selectedExercises: Set<ExerciseConfig_func>,
-    exerciseDurationStr: String,
-    restDurationStr: String,
     onExerciseToggled: (ExerciseConfig_func) -> Unit,
-    onExerciseDurationChanged: (String) -> Unit,
-    onRestDurationChanged: (String) -> Unit,
     onBack: () -> Unit,
     onStartWorkout: () -> Unit
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(BackgroundBlack)
     ) {
         // Main list
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 190.dp) // space for floating bottom input & button
+                .padding(bottom = 100.dp) // space for floating bottom button
         ) {
             Spacer(modifier = Modifier.height(72.dp)) // space for TopBar
 
@@ -143,11 +126,11 @@ fun CustomWorkoutScreen(
                                     .size(48.dp)
                                     .clip(CircleShape)
                                     .background(
-                                        if (isSelected) BrandLime.copy(alpha = 0.15f) else Color.White.copy(alpha = 0.04f)
+                                        if (isSelected) BrandLime.copy(alpha = 0.15f) else CardOverlayColor.copy(alpha = 0.04f)
                                     )
                                     .border(
                                         width = 1.dp,
-                                        color = if (isSelected) BrandLime.copy(alpha = 0.4f) else Color.White.copy(alpha = 0.1f),
+                                        color = if (isSelected) BrandLime.copy(alpha = 0.4f) else CardOverlayColor.copy(alpha = 0.1f),
                                         shape = CircleShape
                                     ),
                                 contentAlignment = Alignment.Center
@@ -155,7 +138,7 @@ fun CustomWorkoutScreen(
                                 Icon(
                                     imageVector = getExerciseIcon(exercise.name),
                                     contentDescription = exercise.name,
-                                    tint = if (isSelected) BrandLime else Color.White.copy(alpha = 0.6f),
+                                    tint = if (isSelected) BrandLime else CardOverlayColor.copy(alpha = 0.6f),
                                     modifier = Modifier.size(24.dp)
                                 )
                             }
@@ -163,7 +146,7 @@ fun CustomWorkoutScreen(
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
                                     text = exercise.name,
-                                    color = Color.White,
+                                    color = TextPrimary,
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -182,7 +165,7 @@ fun CustomWorkoutScreen(
                                     .background(if (isSelected) BrandLime else Color.Transparent)
                                     .border(
                                         width = 2.dp,
-                                        color = if (isSelected) BrandLime else Color.White.copy(alpha = 0.2f),
+                                        color = if (isSelected) BrandLime else CardOverlayColor.copy(alpha = 0.2f),
                                         shape = CircleShape
                                     ),
                                 contentAlignment = Alignment.Center
@@ -191,7 +174,7 @@ fun CustomWorkoutScreen(
                                     Icon(
                                         imageVector = Icons.Default.Check,
                                         contentDescription = "Selected",
-                                        tint = Color.Black,
+                                        tint = BackgroundBlack,
                                         modifier = Modifier.size(16.dp)
                                     )
                                 }
@@ -208,8 +191,8 @@ fun CustomWorkoutScreen(
                 .align(Alignment.TopCenter)
                 .fillMaxWidth()
                 .height(72.dp)
-                .background(Color.Black.copy(alpha = 0.85f))
-                .border(width = 1.dp, color = Color.White.copy(alpha = 0.05f))
+                .background(BackgroundBlack.copy(alpha = 0.85f))
+                .border(width = 1.dp, color = CardOverlayColor.copy(alpha = 0.05f))
                 .padding(horizontal = 20.dp),
             contentAlignment = Alignment.CenterStart
         ) {
@@ -224,22 +207,22 @@ fun CustomWorkoutScreen(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
-                        .background(Color.White.copy(alpha = 0.05f))
-                        .border(1.dp, Color.White.copy(alpha = 0.1f), CircleShape)
+                        .background(CardOverlayColor.copy(alpha = 0.05f))
+                        .border(1.dp, CardOverlayColor.copy(alpha = 0.1f), CircleShape)
                         .clickable { onBack() },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Back",
-                        tint = Color.White,
+                        tint = TextPrimary,
                         modifier = Modifier.size(20.dp)
                     )
                 }
 
                 Text(
                     text = "Select Exercises",
-                    color = Color.White,
+                    color = TextPrimary,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -248,55 +231,18 @@ fun CustomWorkoutScreen(
             }
         }
 
-        // Bottom Action Area containing duration fields and Start Button
+        // Bottom Action Area containing Start Button
         Column(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .background(Color.Black.copy(alpha = 0.85f))
-                .border(width = 1.dp, color = Color.White.copy(alpha = 0.05f))
+                .background(BackgroundBlack.copy(alpha = 0.85f))
+                .border(width = 1.dp, color = CardOverlayColor.copy(alpha = 0.05f))
                 .padding(horizontal = 24.dp)
                 .padding(top = 16.dp, bottom = 24.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                OutlinedTextField(
-                    value = exerciseDurationStr,
-                    onValueChange = onExerciseDurationChanged,
-                    label = { Text("Duration (s)", color = TextSecondary) },
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedTextColor = Color.White,
-                        unfocusedTextColor = Color.White,
-                        focusedBorderColor = BrandLime,
-                        unfocusedBorderColor = Color.White.copy(alpha = 0.12f),
-                        focusedContainerColor = Color(0xFF111111),
-                        unfocusedContainerColor = Color(0xFF111111)
-                    ),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    modifier = Modifier.weight(1f)
-                )
-
-                OutlinedTextField(
-                    value = restDurationStr,
-                    onValueChange = onRestDurationChanged,
-                    label = { Text("Rest (s)", color = TextSecondary) },
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedTextColor = Color.White,
-                        unfocusedTextColor = Color.White,
-                        focusedBorderColor = BrandLime,
-                        unfocusedBorderColor = Color.White.copy(alpha = 0.12f),
-                        focusedContainerColor = Color(0xFF111111),
-                        unfocusedContainerColor = Color(0xFF111111)
-                    ),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    modifier = Modifier.weight(1f)
-                )
-            }
-
             TrainiumButton(
                 text = "START WORKOUT",
                 onClick = onStartWorkout,
@@ -304,7 +250,6 @@ fun CustomWorkoutScreen(
                     Icon(
                         imageVector = Icons.Default.ArrowForward,
                         contentDescription = "Start",
-                        tint = Color.Black,
                         modifier = Modifier.size(20.dp)
                     )
                 }

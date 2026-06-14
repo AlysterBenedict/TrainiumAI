@@ -24,17 +24,27 @@ import androidx.compose.ui.unit.sp
 
 class RestActivity_ui : AppCompatActivity() {
 
+    private var dayTitle: String = "Day_1"
     private var countDownTimer: CountDownTimer? = null
     private var timeRemaining = mutableStateOf(15L)
+    private var isCustomWorkout = false
+    private var accumulatedDurationSeconds = 0
+    private var accumulatedCalories = 0f
+    private var workoutMode: String = WorkoutMode.TRAINER.name
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        workoutMode = intent.getStringExtra("WORKOUT_MODE") ?: WorkoutMode.TRAINER.name
         val restDuration = intent.getLongExtra(Constants_func.EXTRA_REST_DURATION, 15000)
         val nextExerciseName = intent.getStringExtra(Constants_func.EXTRA_NEXT_EXERCISE_NAME) ?: "Finish"
         val workoutPlan = intent.getStringArrayListExtra(Constants_func.EXTRA_WORKOUT_PLAN)
         val nextExerciseIndex = intent.getIntExtra(Constants_func.EXTRA_CURRENT_INDEX, 0)
         val exerciseDuration = intent.getLongExtra(Constants_func.EXTRA_EXERCISE_DURATION, 30000)
+        dayTitle = intent.getStringExtra(Constants_func.EXTRA_DAY_TITLE) ?: "Day_1"
+        isCustomWorkout = intent.getBooleanExtra("IS_CUSTOM_WORKOUT", false)
+        accumulatedDurationSeconds = intent.getIntExtra("ACCUMULATED_DURATION_SECONDS", 0)
+        accumulatedCalories = intent.getFloatExtra("ACCUMULATED_CALORIES", 0f)
 
         timeRemaining.value = restDuration / 1000
 
@@ -45,7 +55,7 @@ class RestActivity_ui : AppCompatActivity() {
                     secondsRemaining = timeRemaining.value,
                     maxSeconds = restDuration / 1000,
                     onSkip = {
-                        goToNextExercise(workoutPlan, nextExerciseIndex, exerciseDuration, restDuration)
+                        goToNextExercise(workoutPlan, nextExerciseIndex, exerciseDuration, restDuration, true)
                     }
                 )
             }
@@ -57,7 +67,7 @@ class RestActivity_ui : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                goToNextExercise(workoutPlan, nextExerciseIndex, exerciseDuration, restDuration)
+                goToNextExercise(workoutPlan, nextExerciseIndex, exerciseDuration, restDuration, false)
             }
         }.start()
     }
@@ -66,7 +76,8 @@ class RestActivity_ui : AppCompatActivity() {
         plan: ArrayList<String>?,
         index: Int,
         exDuration: Long,
-        restDuration: Long
+        restDuration: Long,
+        isSkipped: Boolean
     ) {
         countDownTimer?.cancel()
         val intent = Intent(this, WorkoutActivity_ui::class.java).apply {
@@ -74,6 +85,12 @@ class RestActivity_ui : AppCompatActivity() {
             putExtra(Constants_func.EXTRA_CURRENT_INDEX, index)
             putExtra(Constants_func.EXTRA_EXERCISE_DURATION, exDuration)
             putExtra(Constants_func.EXTRA_REST_DURATION, restDuration)
+            putExtra(Constants_func.EXTRA_DAY_TITLE, dayTitle) // Pass dayTitle forward
+            putExtra("IS_CUSTOM_WORKOUT", isCustomWorkout)
+            putExtra("ACCUMULATED_DURATION_SECONDS", accumulatedDurationSeconds)
+            putExtra("ACCUMULATED_CALORIES", accumulatedCalories)
+            putExtra("WORKOUT_MODE", workoutMode)
+            putExtra("IS_REST_SKIPPED", isSkipped)
         }
         startActivity(intent)
         finish()
@@ -95,7 +112,7 @@ fun RestScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black),
+            .background(BackgroundBlack),
         contentAlignment = Alignment.Center
     ) {
         // Ambient glow
@@ -132,7 +149,7 @@ fun RestScreen(
                     .size(200.dp)
                     .clip(CircleShape)
                     .background(Color(0xFF0F0F0F))
-                    .border(2.dp, Color.White.copy(alpha = 0.08f), CircleShape),
+                    .border(2.dp, CardOverlayColor.copy(alpha = 0.08f), CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator(
@@ -140,12 +157,12 @@ fun RestScreen(
                     modifier = Modifier.fillMaxSize().padding(8.dp),
                     color = BrandLime,
                     strokeWidth = 5.dp,
-                    trackColor = Color.White.copy(alpha = 0.05f)
+                    trackColor = CardOverlayColor.copy(alpha = 0.05f)
                 )
 
                 Text(
                     text = "${secondsRemaining}s",
-                    color = Color.White,
+                    color = TextPrimary,
                     fontSize = 48.sp,
                     fontWeight = FontWeight.Black
                 )
@@ -167,8 +184,8 @@ fun RestScreen(
                             modifier = Modifier
                                 .size(50.dp)
                                 .clip(CircleShape)
-                                .background(Color.White.copy(alpha = 0.04f))
-                                .border(1.dp, Color.White.copy(alpha = 0.1f), CircleShape),
+                                .background(CardOverlayColor.copy(alpha = 0.04f))
+                                .border(1.dp, CardOverlayColor.copy(alpha = 0.1f), CircleShape),
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
@@ -189,7 +206,7 @@ fun RestScreen(
                             )
                             Text(
                                 text = nextExerciseName,
-                                color = Color.White,
+                                color = TextPrimary,
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold
                             )
@@ -199,7 +216,7 @@ fun RestScreen(
             } else {
                 Text(
                     text = "LAST SET COMPLETE!",
-                    color = Color.White,
+                    color = TextPrimary,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -214,7 +231,6 @@ fun RestScreen(
                     Icon(
                         imageVector = Icons.Default.SkipNext,
                         contentDescription = "Skip Rest",
-                        tint = Color.Black,
                         modifier = Modifier.size(20.dp)
                     )
                 }

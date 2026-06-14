@@ -6,8 +6,15 @@ import android.os.Handler
 import android.os.Looper
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -48,8 +55,11 @@ class StartActivity_ui : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             val currentUser = FirebaseAuth.getInstance().currentUser
-            if (currentUser != null) {
-                val sharedPrefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
+            val globalPrefs = getSharedPreferences("global_prefs", MODE_PRIVATE)
+            val isLocalUser = globalPrefs.getBoolean("is_local_user", false)
+
+            if (currentUser != null || isLocalUser) {
+                val sharedPrefs = getTrainiumPrefs("app_prefs")
                 val isBiometricEnabled = sharedPrefs.getBoolean("biometric_enabled", false)
 
                 if (isBiometricEnabled) {
@@ -76,6 +86,11 @@ class StartActivity_ui : AppCompatActivity() {
                         "Authentication error: $errString",
                         android.widget.Toast.LENGTH_SHORT
                     ).show()
+                    if (errorCode == androidx.biometric.BiometricPrompt.ERROR_NEGATIVE_BUTTON ||
+                        errorCode == androidx.biometric.BiometricPrompt.ERROR_USER_CANCELED
+                    ) {
+                        finishAffinity()
+                    }
                 }
 
                 override fun onAuthenticationSucceeded(
@@ -114,15 +129,6 @@ class StartActivity_ui : AppCompatActivity() {
 @Composable
 fun SplashScreen(quote: String) {
     val progress = remember { Animatable(0f) }
-    val context = LocalContext.current
-    val launcherBitmap = remember(context) {
-        val drawable = androidx.core.content.ContextCompat.getDrawable(context, R.mipmap.ic_launcher)
-        drawable?.let {
-            val width = if (it.intrinsicWidth > 0) it.intrinsicWidth else 512
-            val height = if (it.intrinsicHeight > 0) it.intrinsicHeight else 512
-            it.toBitmap(width, height).asImageBitmap()
-        }
-    }
 
     LaunchedEffect(Unit) {
         progress.animateTo(
@@ -131,10 +137,35 @@ fun SplashScreen(quote: String) {
         )
     }
 
+    val context = LocalContext.current
+    val isGemmaDownloaded = remember {
+        java.io.File(context.filesDir, "gemma-4-E2B-it.litertlm").exists()
+    }
+
+    val stepLabels = remember(isGemmaDownloaded) {
+        if (isGemmaDownloaded) {
+            listOf(
+                Pair("Loading body metrics AI model...", "Body metrics AI model loaded"),
+                Pair("Loading workout generator AI model...", "Workout generator AI model loaded"),
+                Pair("Loading pose estimator...", "Pose estimator loaded"),
+                Pair("Loading Trainium AI...", "Trainium AI loaded")
+            )
+        } else {
+            listOf(
+                Pair("Loading body metrics AI model...", "Body metrics AI model loaded"),
+                Pair("Loading workout generator AI model...", "Workout generator AI model loaded"),
+                Pair("Loading pose estimator...", "Pose estimator loaded")
+            )
+        }
+    }
+
+    val numSteps = stepLabels.size
+    val stepDuration = 0.85f / numSteps
+
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black),
+            .background(BackgroundBlack),
         contentAlignment = Alignment.Center
     ) {
         // Ambient lime glow at top
@@ -159,31 +190,39 @@ fun SplashScreen(quote: String) {
                 modifier = Modifier
                     .size(110.dp)
                     .clip(RoundedCornerShape(24.dp))
-                    .background(Color.White.copy(alpha = 0.04f))
-                    .border(1.dp, Color.White.copy(alpha = 0.12f), RoundedCornerShape(24.dp))
+                    .background(CardOverlayColor.copy(alpha = 0.04f))
+                    .border(1.dp, CardOverlayColor.copy(alpha = 0.12f), RoundedCornerShape(24.dp))
                     .padding(20.dp),
                 contentAlignment = Alignment.Center
             ) {
-                if (launcherBitmap != null) {
-                    Image(
-                        bitmap = launcherBitmap,
-                        contentDescription = "Logo",
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_playstore),
+                    contentDescription = "Logo",
+                    modifier = Modifier.fillMaxSize()
+                )
             }
 
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
                 text = "TRAINIUM",
-                color = Color.White,
+                color = TextPrimary,
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Black,
                 letterSpacing = 4.sp
             )
 
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(6.dp))
+
+            Text(
+                text = "AI FITNESS COACH",
+                color = TextSecondary.copy(alpha = 0.65f),
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 3.sp
+            )
+
+            Spacer(modifier = Modifier.height(36.dp))
 
             // Progress bar
             LinearProgressIndicator(
@@ -193,23 +232,70 @@ fun SplashScreen(quote: String) {
                     .height(6.dp)
                     .clip(RoundedCornerShape(3.dp)),
                 color = BrandLime,
-                trackColor = Color.White.copy(alpha = 0.1f)
+                trackColor = CardOverlayColor.copy(alpha = 0.1f)
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-            Text(
-                text = "Loading fitness intelligence...",
-                color = TextSecondary,
-                fontSize = 13.sp,
-                fontWeight = FontWeight.Medium,
-                letterSpacing = 0.5.sp
-            )
+            // Beautiful interactive sequential loading task flow list
+            Column(
+                modifier = Modifier
+                    .width(280.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(SurfaceLow.copy(alpha = 0.4f))
+                    .border(1.dp, CardOverlayColor.copy(alpha = 0.08f), RoundedCornerShape(16.dp))
+                    .padding(vertical = 14.dp, horizontal = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                stepLabels.forEachIndexed { index, pair ->
+                    val isVisible = progress.value >= index * stepDuration
+                    val isCompleted = progress.value >= (index + 1) * stepDuration
+                    val isActive = isVisible && !isCompleted
+
+                    AnimatedVisibility(
+                        visible = isVisible,
+                        enter = fadeIn(animationSpec = tween(400)) + expandVertically(animationSpec = tween(400)),
+                        exit = fadeOut(animationSpec = tween(400)) + shrinkVertically(animationSpec = tween(400))
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            if (isCompleted) {
+                                Icon(
+                                    imageVector = Icons.Default.CheckCircle,
+                                    contentDescription = "Completed",
+                                    tint = BrandLime,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            } else if (isActive) {
+                                CircularProgressIndicator(
+                                    color = BrandLime,
+                                    strokeWidth = 2.dp,
+                                    modifier = Modifier.size(14.dp)
+                                )
+                            } else {
+                                Box(modifier = Modifier.size(16.dp))
+                            }
+
+                            Spacer(modifier = Modifier.width(12.dp))
+
+                            Text(
+                                text = if (isCompleted) pair.second else pair.first,
+                                color = if (isActive) TextPrimary else TextSecondary.copy(alpha = 0.7f),
+                                fontSize = 12.5.sp,
+                                fontWeight = if (isActive) FontWeight.SemiBold else FontWeight.Medium,
+                                letterSpacing = 0.4.sp
+                            )
+                        }
+                    }
+                }
+            }
         }
 
         Text(
             text = "\"$quote\"",
-            color = Color.White,
+            color = TextPrimary,
             fontSize = 16.sp,
             fontStyle = FontStyle.Italic,
             textAlign = TextAlign.Center,

@@ -1,5 +1,6 @@
 package com.example.aifitnesscoach
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
@@ -117,19 +120,11 @@ fun LoginScreen(
     onSignInClicked: () -> Unit
 ) {
     val context = LocalContext.current
-    val launcherBitmap = remember(context) {
-        val drawable = androidx.core.content.ContextCompat.getDrawable(context, R.mipmap.ic_launcher)
-        drawable?.let {
-            val width = if (it.intrinsicWidth > 0) it.intrinsicWidth else 512
-            val height = if (it.intrinsicHeight > 0) it.intrinsicHeight else 512
-            it.toBitmap(width, height).asImageBitmap()
-        }
-    }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black),
+            .background(BackgroundBlack),
         contentAlignment = Alignment.Center
     ) {
         // Ambient glow at top
@@ -155,40 +150,42 @@ fun LoginScreen(
                 modifier = Modifier
                     .size(110.dp)
                     .clip(RoundedCornerShape(24.dp))
-                    .background(Color.White.copy(alpha = 0.04f))
-                    .border(1.dp, Color.White.copy(alpha = 0.12f), RoundedCornerShape(24.dp))
+                    .background(CardOverlayColor.copy(alpha = 0.04f))
+                    .border(1.dp, CardOverlayColor.copy(alpha = 0.12f), RoundedCornerShape(24.dp))
                     .padding(20.dp),
                 contentAlignment = Alignment.Center
             ) {
-                if (launcherBitmap != null) {
-                    Image(
-                        bitmap = launcherBitmap,
-                        contentDescription = "Logo",
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_playstore),
+                    contentDescription = "Logo",
+                    modifier = Modifier.fillMaxSize()
+                )
             }
 
             Spacer(modifier = Modifier.height(28.dp))
 
             Text(
                 text = "TRAINIUM",
-                color = Color.White,
+                color = TextPrimary,
                 fontSize = 44.sp,
                 fontWeight = FontWeight.Black,
                 letterSpacing = 4.sp
             )
 
+            Spacer(modifier = Modifier.height(6.dp))
+
             Text(
-                text = "YOUR AI FITNESS COACH",
-                color = TextSecondary,
+                text = "AI FITNESS COACH",
+                color = TextSecondary.copy(alpha = 0.65f),
                 fontSize = 14.sp,
-                fontStyle = FontStyle.Italic,
                 fontWeight = FontWeight.Bold,
-                letterSpacing = 2.5.sp
+                letterSpacing = 3.sp
             )
 
-            Spacer(modifier = Modifier.height(64.dp))
+            Spacer(modifier = Modifier.height(48.dp))
+
+            var showGuestDialog by remember { mutableStateOf(false) }
+            var guestName by remember { mutableStateOf("") }
 
             if (isLoading) {
                 CircularProgressIndicator(
@@ -203,7 +200,7 @@ fun LoginScreen(
                         .height(56.dp)
                         .clip(RoundedCornerShape(28.dp))
                         .background(Color(0xFF1E201E))
-                        .border(1.dp, Color.White.copy(alpha = 0.08f), RoundedCornerShape(28.dp))
+                        .border(1.dp, CardOverlayColor.copy(alpha = 0.08f), RoundedCornerShape(28.dp))
                         .bounceClick { onSignInClicked() },
                     contentAlignment = Alignment.Center
                 ) {
@@ -219,13 +216,120 @@ fun LoginScreen(
                         Spacer(modifier = Modifier.width(14.dp))
                         Text(
                             text = "Sign in with Google",
-                            color = Color.White,
+                            color = TextPrimary,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 0.5.sp
                         )
                     }
                 }
+                Spacer(modifier = Modifier.height(16.dp))
+                // Create Local Account Button
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(0.85f)
+                        .height(56.dp)
+                        .clip(RoundedCornerShape(28.dp))
+                        .background(CardOverlayColor.copy(alpha = 0.05f))
+                        .border(1.dp, CardOverlayColor.copy(alpha = 0.12f), RoundedCornerShape(28.dp))
+                        .bounceClick { showGuestDialog = true },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Person,
+                            contentDescription = "Guest",
+                            tint = BrandLime,
+                            modifier = Modifier.size(22.dp)
+                        )
+                        Spacer(modifier = Modifier.width(14.dp))
+                        Text(
+                            text = "Local Account",
+                            color = TextPrimary,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 0.5.sp
+                        )
+                    }
+                }
+            }
+
+            if (showGuestDialog) {
+                AlertDialog(
+                    onDismissRequest = { showGuestDialog = false },
+                    title = {
+                        Text(
+                            text = "Create Local Account",
+                            color = TextPrimary,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp
+                        )
+                    },
+                    text = {
+                        Column {
+                            Text(
+                                text = "Enter your name to start training locally. Your progress will be saved offline on this device.",
+                                color = TextSecondary,
+                                fontSize = 14.sp,
+                                modifier = Modifier.padding(bottom = 16.dp)
+                            )
+                            OutlinedTextField(
+                                value = guestName,
+                                onValueChange = { guestName = it },
+                                label = { Text("Your Name", color = TextSecondary) },
+                                singleLine = true,
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedTextColor = TextPrimary,
+                                    unfocusedTextColor = TextPrimary,
+                                    focusedBorderColor = BrandLime,
+                                    unfocusedBorderColor = CardOverlayColor.copy(alpha = 0.2f),
+                                    focusedLabelColor = BrandLime,
+                                    cursorColor = BrandLime
+                                ),
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                    },
+                    confirmButton = {
+                        Button(
+                            onClick = {
+                                if (guestName.isNotBlank()) {
+                                    showGuestDialog = false
+                                    val globalPrefs = context.getSharedPreferences("global_prefs", Context.MODE_PRIVATE)
+                                    globalPrefs.edit()
+                                        .putBoolean("is_local_user", true)
+                                        .putString("local_user_name", guestName.trim())
+                                        .apply()
+
+                                    val intent = Intent(context, HomeActivity_ui::class.java)
+                                    context.startActivity(intent)
+                                    (context as? AppCompatActivity)?.finish()
+                                } else {
+                                    Toast.makeText(context, "Please enter your name", Toast.LENGTH_SHORT).show()
+                                }
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = BrandLime,
+                                contentColor = BackgroundBlack
+                            ),
+                            shape = RoundedCornerShape(20.dp)
+                        ) {
+                            Text("Proceed", fontWeight = FontWeight.Bold)
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(
+                            onClick = { showGuestDialog = false }
+                        ) {
+                            Text("Cancel", color = CardOverlayColor.copy(alpha = 0.6f))
+                        }
+                    },
+                    containerColor = Color(0xFF1E201E),
+                    shape = RoundedCornerShape(24.dp)
+                )
             }
         }
     }
